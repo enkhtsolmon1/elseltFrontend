@@ -14,11 +14,7 @@ const LayOut = () => {
       }}
     >
       <TopNav />
-      <Container maxWidth="lg">
-        <Box p={2}>
-          <Outlet />
-        </Box>
-      </Container>
+      <Outlet />
     </Box>
   );
 };
