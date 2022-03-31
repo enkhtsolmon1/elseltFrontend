@@ -118,7 +118,7 @@ const nav = [
   },
   {
     name: "Хөтөлбөр",
-    to: "program",
+    to: "programs",
   },
   {
     name: "Журам",
