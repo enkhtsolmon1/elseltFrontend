@@ -15,10 +15,7 @@ const initalState2 = {
 export const ProgramStore = (props) => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
-  useEffect(() => {
-    LoadPrograms();
-    AllDisc();
-  }, []);
+  useEffect(() => {}, []);
   const [programState, setProgramState] = useState(initalState);
   const [progLessonState, setprogLessonState] = useState(initalState2);
   const [alert, setAlert] = useState({ value: false, type: "" });
@@ -81,7 +78,7 @@ export const ProgramStore = (props) => {
   };
   const getTags = (tagname) => {
     axios
-      .get(`programs?tags=${tagname}`)
+      .get(`programs?tags=${tagname}&isElselt=1`)
       .then((res) => {
         setProgramState({ ...res.data });
       })
