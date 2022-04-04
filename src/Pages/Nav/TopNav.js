@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,7 +11,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import PropTypes from "prop-types";
 import Slide from "@mui/material/Slide";
+import ElseltCTX from "../../Context/ElseltContext";
 
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Login from "../Auth/Login";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LogoutIcon from "@mui/icons-material/Logout";
 function HideOnScroll(props) {
   const { children, window } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -35,52 +44,134 @@ function HideOnScroll(props) {
   );
 }
 const TopNav = (props) => {
+  const { LoginBachelor, bacheUser, setBacheUser } = useContext(ElseltCTX);
+
   let location = useLocation();
   let navigate = useNavigate();
   useEffect(() => {}, []);
 
   const [active, setActive] = useState("home");
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <HideOnScroll {...props}>
-      <AppBar
-        sx={{
-          backgroundColor: "#ffffff",
-        }}
-        position="sticky"
+    <>
+      <Dialog
+        maxWidth="xs"
+        fullWidth
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
-        <Container maxWidth="lg">
-          <Toolbar>
-            <Stack direction="row" spacing={0.5}>
-              <img
-                width="80px"
-                // height="70px"
-                src="http://khu.edu.mn:3000/upload/programfiles/khu.png"
-              />
-              <Stack
-                direction="column"
-                sx={{
-                  color: "#07158F",
-                }}
-              >
-                <Typography variant="h5" color="inherit" noWrap>
-                  <b>ХОВД</b>
-                </Typography>
-                <Typography variant="body1">ИХ СУРГУУЛЬ</Typography>
-                <Typography variant="caption">SINCE 1979</Typography>
+        <DialogTitle sx={{ textAlign: "center" }} id="alert-dialog-title">
+          Нэвтрэх хэсэг
+        </DialogTitle>
+        <DialogContent>
+          <Login handleClose={handleClose} />
+        </DialogContent>
+      </Dialog>
+      <HideOnScroll {...props}>
+        <AppBar
+          sx={{
+            backgroundColor: "#ffffff",
+          }}
+          position="sticky"
+        >
+          <Container maxWidth="lg">
+            <Toolbar>
+              <Stack direction="row" spacing={0.5}>
+                <img
+                  width="80px"
+                  // height="70px"
+                  src="http://khu.edu.mn:3000/upload/programfiles/khu.png"
+                />
+                <Stack
+                  direction="column"
+                  sx={{
+                    color: "#07158F",
+                  }}
+                >
+                  <Typography sx={{ fontSize: 20 }} color="inherit" noWrap>
+                    <b>ХОВД</b>
+                  </Typography>
+                  <Typography sx={{ fontSize: 14 }}>ИХ СУРГУУЛЬ</Typography>
+                  <Typography sx={{ fontSize: 10 }} variant="caption">
+                    SINCE 1979
+                  </Typography>
+                </Stack>
               </Stack>
-            </Stack>
-            <Box sx={{ flexGrow: 1 }}></Box>
-            {nav.map((el, index) => {
-              return (
+              <Box sx={{ flexGrow: 1 }}></Box>
+              {nav.map((el, index) => {
+                return (
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      setActive(el.to);
+                      navigate(el.to);
+                    }}
+                    sx={{
+                      color: active === el.to ? "#623CEA" : "#000",
+                      "&:hover": {
+                        color: "#623CEA",
+                      },
+                      display: { xs: "none", md: "block" },
+                    }}
+                    variant="text"
+                  >
+                    <Box
+                      ml={2}
+                      mt={1}
+                      borderBottom={active === el.to ? 2 : 0}
+                      borderColor="#623CEA"
+                    >
+                      {el.name}
+                    </Box>
+                  </Button>
+                );
+              })}
+              {bacheUser.success ? (
+                <>
+                  <Button
+                    color="primary"
+                    onClick={() => {
+                      navigate("profile");
+                    }}
+                  >
+                    <Box ml={2} mt={1} borderColor="#623CEA">
+                      {bacheUser.user.fname}
+                    </Box>
+                  </Button>
+                  <IconButton
+                    sx={{ mt: 1 }}
+                    onClick={() => {
+                      setBacheUser({
+                        success: false,
+                        token: "",
+                        user: {},
+                      });
+                      navigate("/home");
+                    }}
+                  >
+                    <LogoutIcon color="primary" />
+                  </IconButton>
+                </>
+              ) : (
                 <Button
                   size="small"
                   onClick={() => {
-                    setActive(el.to);
-                    navigate(el.to);
+                    setActive("login");
+                    handleClickOpen();
                   }}
                   sx={{
-                    color: active === el.to ? "#623CEA" : "#000",
+                    color: active === "login" ? "#623CEA" : "#000",
                     "&:hover": {
                       color: "#623CEA",
                     },
@@ -91,18 +182,18 @@ const TopNav = (props) => {
                   <Box
                     ml={2}
                     mt={1}
-                    borderBottom={active === el.to ? 2 : 0}
+                    borderBottom={active === "login" ? 2 : 0}
                     borderColor="#623CEA"
                   >
-                    {el.name}
+                    Нэвтрэх
                   </Box>
                 </Button>
-              );
-            })}
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </HideOnScroll>
+              )}
+            </Toolbar>
+          </Container>
+        </AppBar>
+      </HideOnScroll>
+    </>
   );
 };
 

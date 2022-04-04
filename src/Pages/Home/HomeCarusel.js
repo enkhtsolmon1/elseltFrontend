@@ -10,6 +10,7 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import { Card, CardMedia, Grid, Container, Stack } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -22,6 +23,8 @@ const images = [
 ];
 
 function HomeCarusel() {
+  const navigate = useNavigate();
+
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = images.length;
@@ -66,9 +69,12 @@ function HomeCarusel() {
                     <Typography
                       sx={{ fontSize: { xs: 20, md: 48 }, color: "#FDC735" }}
                     >
-                      Meet new freinds
+                      Welcome to Khovd university
                     </Typography>
                     <Button
+                      onClick={() => {
+                        navigate("/burtgel");
+                      }}
                       sx={{ borderRadius: 5 }}
                       variant="contained"
                       color="info"

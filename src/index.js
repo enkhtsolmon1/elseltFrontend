@@ -5,15 +5,25 @@ import { ProgramStore } from "./Context/ProgramContext";
 import { ElseltStore } from "./Context/ElseltContext";
 import "./index.css";
 import App from "./App";
+import { SnackbarProvider } from "notistack";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <ElseltStore>
-        <ProgramStore>
-          <App />
-        </ProgramStore>
-      </ElseltStore>
+      <SnackbarProvider
+        maxSnack={5}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        autoHideDuration={4000}
+      >
+        <ElseltStore>
+          <ProgramStore>
+            <App />
+          </ProgramStore>
+        </ElseltStore>
+      </SnackbarProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

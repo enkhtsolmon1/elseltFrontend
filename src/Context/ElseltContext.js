@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "../Config/AxiosElselt";
+import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
 const ElseltContext = React.createContext();
 
 const initialState = {
@@ -9,12 +11,15 @@ const initialState = {
 };
 
 export const ElseltStore = (props) => {
+  const { enqueueSnackbar } = useSnackbar();
+  let navigate = useNavigate();
+
   useEffect(() => {
     LoadAddress();
     // AllElselt();
     // allBachelors();
   }, []);
-  const [alert, setAlert] = useState({ value: false, type: "" });
+
   const [bacheUser, setBacheUser] = useState({
     success: false,
     token: "",
@@ -29,32 +34,35 @@ export const ElseltStore = (props) => {
     pagination: {},
   });
   const [loading, setLoading] = useState(false);
+
+  const alertCall = (message, variant) => {
+    // variant could be success, error, warning, info, or default
+    enqueueSnackbar(message, { variant });
+  };
+
   const LoadAddress = () => {
     axios
       .get(`address`)
       .then((res) => {
         setaddressState({ ...res.data });
       })
-      .catch((err) => console.log(err));
+      .catch((error) => alertCall(error.response.data.error, "error"));
   };
-  const getBachelor = (id) => {
+  const getBachelor = (id, token) => {
     axios
       .get(`bachelors/${id}`, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: `Bearer ${bacheUser.token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
         setBachelors({ ...res.data });
       })
-      .catch((error) => {
-        setAlert({ value: true, type: error.response.data.error });
-      });
+      .catch((error) => alertCall(error.response.data.error, "error"));
   };
   const LoginBachelor = (data) => {
-    setAlert({ value: false, type: "" });
     axios
       .post(`bachelors/login`, data, {
         headers: {
@@ -64,12 +72,11 @@ export const ElseltStore = (props) => {
       })
       .then((response) => {
         setBacheUser({ ...response.data });
-        getBachelor(response.data.user._id);
-        setAlert({ value: true, type: "Амжилттай" });
+        getBachelor(response.data.user._id, response.data.token);
+        alertCall("Амжилттай", "info");
+        navigate("/profile");
       })
-      .catch((error) =>
-        setAlert({ value: true, type: error.response.data.error })
-      );
+      .catch((error) => alertCall(error.response.data.error, "error"));
   };
 
   const allBachelors = () => {
@@ -85,10 +92,10 @@ export const ElseltStore = (props) => {
       .then((res) => {
         setBachelors({ ...res.data });
       })
-      .catch((error) => console.log(error.response.data.error));
+      .catch((error) => alertCall(error.response.data.error, "error"));
   };
   const updateBachelors = ({ id, editBachelors }) => {
-    setAlert({ value: false, type: "" });
+    console.log(id, editBachelors);
     axios
       .put(`bachelors/${id}`, editBachelors, {
         headers: {
@@ -97,16 +104,13 @@ export const ElseltStore = (props) => {
           Authorization: `Bearer ${bacheUser.token}`,
         },
       })
-      .then((response) => {
-        setAlert({ value: true, type: "Амжилттай" });
-        getBachelor(id);
+      .then((res) => {
+        alertCall("Амжилттай", "info");
+        getBachelor(id, bacheUser.token);
       })
-      .catch((error) =>
-        setAlert({ value: true, type: error.response.data.error })
-      );
+      .catch((error) => alertCall(error.response.data.error, "error"));
   };
   const addBachelor = (newBachelor) => {
-    setAlert({ value: false, type: "" });
     axios
       .post(`bachelors`, newBachelor, {
         headers: {
@@ -116,15 +120,13 @@ export const ElseltStore = (props) => {
         },
       })
       .then((response) => {
-        setAlert({ value: true, type: "Амжилттай" });
+        alertCall("Амжилттай", "info");
         LoginBachelor({
           password: newBachelor.password,
           pupil_id: newBachelor.pupil_id,
         });
       })
-      .catch((error) =>
-        setAlert({ value: true, type: error.response.data.error })
-      );
+      .catch((error) => alertCall(error.response.data.error, "error"));
   };
   const AllElselt = () => {
     axios
@@ -137,7 +139,7 @@ export const ElseltStore = (props) => {
       .then((res) => {
         setElseltState({ ...res.data });
       })
-      .catch((error) => console.log(error.response.data.error));
+      .catch((error) => alertCall(error.response.data.error, "error"));
   };
   const addElselt = (newElselt) => {
     axios
@@ -151,7 +153,7 @@ export const ElseltStore = (props) => {
       .then((response) => {
         setLoading(true);
       })
-      .catch((error) => console.log(error.response.data.error));
+      .catch((error) => alertCall(error.response.data.error, "error"));
   };
   return (
     <ElseltContext.Provider
@@ -167,8 +169,6 @@ export const ElseltStore = (props) => {
         loading,
         bachelors,
         allBachelors,
-        alert,
-        setAlert,
         addressState,
       }}
     >

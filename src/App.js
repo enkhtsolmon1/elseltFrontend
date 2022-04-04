@@ -7,6 +7,7 @@ import NotFount from "./Pages/Error/NotFount";
 import Home from "./Pages/Home/Home";
 import Program from "./Pages/Hutulbur/Program";
 import LayOut from "./Pages/LayOut";
+import Profile from "./Pages/Profile/Profile";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="burtgel" element={<Burtgel />} />
           <Route path="juram" element={<Juram />} />
           <Route path="contact" element={<ContactUs />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="*" element={<NotFount />} />
         </Route>
       </Routes>

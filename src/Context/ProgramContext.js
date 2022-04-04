@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../Config/AxiosElselt";
+import { useSnackbar } from "notistack";
+
 const ProgramContext = React.createContext();
 
 const initalState = {
@@ -13,16 +15,23 @@ const initalState2 = {
   pagination: {},
 };
 export const ProgramStore = (props) => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
   useEffect(() => {}, []);
   const [programState, setProgramState] = useState(initalState);
   const [progLessonState, setprogLessonState] = useState(initalState2);
-  const [alert, setAlert] = useState({ value: false, type: "" });
   const [discState, setDiscState] = useState({
     success: false,
     disciplines: [],
   });
+
+  const alertCall = (message, variant) => {
+    // variant could be success, error, warning, info, or default
+    enqueueSnackbar(message, { variant });
+  };
+
   const getDiscProgramm = (discID) => {
     setProgramState({ ...initalState });
     axios
@@ -30,7 +39,7 @@ export const ProgramStore = (props) => {
       .then((res) => {
         setProgramState({ ...res.data });
       })
-      .catch((error) => console.log(error.response.data.error));
+      .catch((error) => alertCall(error.response.data.error, "error"));
   };
   const AllDisc = () => {
     setProgramState({ ...initalState });
@@ -39,10 +48,9 @@ export const ProgramStore = (props) => {
       .then((res) => {
         setDiscState({ ...res.data });
       })
-      .catch((error) => console.log(error.response.data.error));
+      .catch((error) => alertCall(error.response.data.error, "error"));
   };
   const updateProgram = ({ id, editProgram }) => {
-    setAlert({ value: false, type: "" });
     axios
       .put(`programs/${id}`, editProgram, {
         headers: {
@@ -53,11 +61,9 @@ export const ProgramStore = (props) => {
       })
       .then((response) => {
         DepLoadPrograms(userId);
-        setAlert({ value: true, type: "Амжилттай" });
+        alertCall("Амжилттай", "info");
       })
-      .catch((error) =>
-        setAlert({ value: true, type: error.response.data.error })
-      );
+      .catch((error) => alertCall(error.response.data.error, "error"));
   };
   const LoadProgLessons = () => {
     axios
@@ -65,7 +71,7 @@ export const ProgramStore = (props) => {
       .then((res) => {
         setprogLessonState({ ...res.data });
       })
-      .catch((err) => console.log(err));
+      .catch((error) => alertCall(error.response.data.error, "error"));
   };
   const LoadPrograms = () => {
     setProgramState({ ...initalState });
@@ -74,7 +80,7 @@ export const ProgramStore = (props) => {
       .then((res) => {
         setProgramState({ ...res.data });
       })
-      .catch((err) => console.log(err));
+      .catch((error) => alertCall(error.response.data.error, "error"));
   };
   const getTags = (tagname) => {
     axios
@@ -82,7 +88,7 @@ export const ProgramStore = (props) => {
       .then((res) => {
         setProgramState({ ...res.data });
       })
-      .catch((err) => console.log(err));
+      .catch((error) => alertCall(error.response.data.error, "error"));
   };
   const DepLoadPrograms = (depId) => {
     axios
@@ -90,7 +96,7 @@ export const ProgramStore = (props) => {
       .then((res) => {
         setProgramState({ ...res.data });
       })
-      .catch((err) => console.log(err));
+      .catch((error) => alertCall(error.response.data.error, "error"));
   };
   return (
     <ProgramContext.Provider
@@ -99,8 +105,6 @@ export const ProgramStore = (props) => {
         discState,
         setDiscState,
         updateProgram,
-        alert,
-        setAlert,
         programState,
         DepLoadPrograms,
         LoadPrograms,

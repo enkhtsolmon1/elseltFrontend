@@ -11,6 +11,7 @@ import {
   Stack,
 } from "@mui/material";
 import ProgramCTX from "../../Context/ProgramContext";
+import ElseltCTX from "../../Context/ElseltContext";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -21,12 +22,16 @@ import { decode } from "html-entities";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import SchoolIcon from "@mui/icons-material/School";
+import { useNavigate } from "react-router-dom";
 const Program = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     LoadPrograms();
   }, []);
   const { programState, LoadPrograms, discState, getTags } =
     useContext(ProgramCTX);
+  const { bacheUser, updateBachelors } = useContext(ElseltCTX);
   var stud = {};
   var result = programState.programs.reduce(function (r, o) {
     var key = o.form;
@@ -43,7 +48,7 @@ const Program = () => {
   }, []);
   const [value, setValue] = useState("all");
   const [data, setData] = useState(null);
-  console.log(data);
+
   const handleChange = (event, newValue) => {
     if (newValue === "all") {
       LoadPrograms();
@@ -79,9 +84,31 @@ const Program = () => {
           )}
         </DialogContent>
         <DialogActions sx={{ justifyContent: "center" }}>
-          <Button variant="contained" color="primary">
-            Бүртгүүлэх
-          </Button>
+          {bacheUser.success ? (
+            <Button
+              onClick={() => {
+                updateBachelors({
+                  id: bacheUser.user._id,
+                  editBachelors: data._id,
+                });
+                navigate("/profile");
+              }}
+              variant="contained"
+              color="primary"
+            >
+              Энх хөтөлбөрийг сонгох
+            </Button>
+          ) : (
+            <Button
+              onClick={() => {
+                navigate("/burtgel");
+              }}
+              variant="contained"
+              color="primary"
+            >
+              Бүртгүүлэх
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
       <Stack alignItems="center" mt={5}>
