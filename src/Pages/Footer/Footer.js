@@ -4,7 +4,6 @@ import React from "react";
 const Footer = () => {
   return (
     <Box
-      mt={4}
       py={4}
       sx={{
         backgroundColor: "#2C75E4",
@@ -15,7 +14,7 @@ const Footer = () => {
       }}
     >
       <Stack direction="row" spacing={1} justifyContent="center">
-        <Typography variant="body2">
+        <Typography variant="body2" textAlign="center">
           {" © "}
           <Link
             sx={{ color: "#ffffff" }}

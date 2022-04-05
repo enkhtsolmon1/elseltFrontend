@@ -19,7 +19,6 @@ const LayOut = () => {
       <Box mb={20}>
         <Outlet />
       </Box>
-
       <Footer />
     </Box>
   );
