@@ -31,7 +31,8 @@ const Program = () => {
   }, []);
   const { programState, LoadPrograms, discState, getTags } =
     useContext(ProgramCTX);
-  const { bacheUser, updateBachelors } = useContext(ElseltCTX);
+  const { bacheUser, updateBachelors, masterUser, updateMaster } =
+    useContext(ElseltCTX);
   var stud = {};
   var result = programState.programs.reduce(function (r, o) {
     var key = o.form;
@@ -46,6 +47,7 @@ const Program = () => {
     }
     return r;
   }, []);
+
   const [value, setValue] = useState("all");
   const [data, setData] = useState(null);
 
@@ -84,14 +86,24 @@ const Program = () => {
           )}
         </DialogContent>
         <DialogActions sx={{ justifyContent: "center" }}>
-          {bacheUser.success ? (
+          {bacheUser.success || masterUser.success ? (
             <Button
               onClick={() => {
-                updateBachelors({
-                  id: bacheUser.user._id,
-                  editBachelors: data._id,
-                });
-                navigate("/profile");
+                if (bacheUser.success) {
+                  updateBachelors(bacheUser.user._id, {
+                    program: data._id,
+                    schoolID: data.school_id._id,
+                    department: data.department_id_id,
+                  });
+                  navigate("/profile");
+                } else if (masterUser.success) {
+                  updateMaster(masterUser.user._id, {
+                    program: data._id,
+                    schoolID: data.school_id._id,
+                    department: data.department_id_id,
+                  });
+                  navigate("/masterprofile");
+                }
               }}
               variant="contained"
               color="primary"

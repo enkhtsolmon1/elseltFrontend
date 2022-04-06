@@ -54,7 +54,7 @@ function HomeCarusel() {
             <CardMedia image={step.imgPath}>
               <Grid
                 sx={{
-                  backgroundColor: "rgba(0,0,0,0.25)",
+                  backgroundColor: "rgba(0,0,0,0.3)",
                   color: "#fff",
                 }}
                 item
@@ -66,7 +66,7 @@ function HomeCarusel() {
                     justifyContent="center"
                     sx={{ height: 550, textAlign: "center" }}
                   >
-                    <Typography
+                    {/* <Typography
                       sx={{ fontSize: { xs: 20, md: 48 }, color: "#FDC735" }}
                     >
                       Welcome to Khovd university
@@ -80,7 +80,7 @@ function HomeCarusel() {
                       color="info"
                     >
                       бүртгүүлэх
-                    </Button>
+                    </Button> */}
                   </Stack>
                 </Container>
               </Grid>

@@ -33,8 +33,15 @@ export const ElseltStore = (props) => {
     bachelor: [],
     pagination: {},
   });
-  const [loading, setLoading] = useState(false);
-
+  const [masterUser, setMasterUser] = useState({
+    success: false,
+    token: "",
+    user: {},
+  });
+  const [masterOne, setMasterOne] = useState({
+    success: false,
+    master: {},
+  });
   const alertCall = (message, variant) => {
     // variant could be success, error, warning, info, or default
     enqueueSnackbar(message, { variant });
@@ -94,8 +101,7 @@ export const ElseltStore = (props) => {
       })
       .catch((error) => alertCall(error.response.data.error, "error"));
   };
-  const updateBachelors = ({ id, editBachelors }) => {
-    console.log(id, editBachelors);
+  const updateBachelors = (id, editBachelors) => {
     axios
       .put(`bachelors/${id}`, editBachelors, {
         headers: {
@@ -128,6 +134,7 @@ export const ElseltStore = (props) => {
       })
       .catch((error) => alertCall(error.response.data.error, "error"));
   };
+  // ------------------------ Masters ---------------------------
   const AllElselt = () => {
     axios
       .get(`masters`, {
@@ -147,17 +154,70 @@ export const ElseltStore = (props) => {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: `Bearer ${bacheUser.token}`,
         },
       })
       .then((response) => {
-        setLoading(true);
+        alertCall("Амжилттай", "info");
+        LoginMasters({
+          email: newElselt.email,
+          password: newElselt.password,
+        });
+      })
+      .catch((error) => alertCall(error.response.data.error, "error"));
+  };
+  const updateMaster = (id, editmaster) => {
+    axios
+      .put(`masters/${id}`, editmaster, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${masterUser.token}`,
+        },
+      })
+      .then((res) => {
+        alertCall("Амжилттай", "info");
+        getMasters(id, masterUser.token);
+      })
+      .catch((error) => alertCall(error.response.data.error, "error"));
+  };
+  const getMasters = (id, token) => {
+    axios
+      .get(`masters/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setMasterOne({ ...res.data });
+      })
+      .catch((error) => alertCall(error.response.data.error, "error"));
+  };
+  const LoginMasters = (data) => {
+    axios
+      .post(`masters/login`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+      .then((response) => {
+        setMasterUser({ ...response.data });
+        getMasters(response.data.user._id, response.data.token);
+        navigate("/masterprofile");
       })
       .catch((error) => alertCall(error.response.data.error, "error"));
   };
   return (
     <ElseltContext.Provider
       value={{
+        setMasterUser,
+        updateMaster,
+        masterUser,
+        masterOne,
+        getMasters,
+        LoginMasters,
         getBachelor,
         updateBachelors,
         LoginBachelor,
@@ -166,7 +226,6 @@ export const ElseltStore = (props) => {
         addBachelor,
         elseltState,
         addElselt,
-        loading,
         bachelors,
         allBachelors,
         addressState,

@@ -69,86 +69,86 @@ const Home = () => {
                 </Box>
               </Grid>
             );
-          })}
-          <Grid xs={12}>
-            <Stack alignItems="center" my={5} spacing={0.5}>
-              <Typography variant="h5">ХӨНГӨЛӨЛТ УРАМШУУЛАЛ</Typography>
-              <Box width={80} borderBottom={2} borderColor="#2C75E4"></Box>
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Box p={2}>
-              <Stack spacing={4}>
-                <Typography
-                  sx={{ textAlign: "center" }}
-                  variant="h6"
-                  color="initial"
-                >
-                  Ховд их сургуулийн тэтгэлэг, хөнгөлөлт
-                </Typography>
-                {[
-                  "“ХИС-ийн захирлын нэрэмжит тэтгэлэг” - ЭЕШ-ийн 750-аас дээш оноотой элсэгчид 4 жил сургалтын төлбөрийг 100% чөлөөлнө",
-                  "ХИС-ийн удирдах зөвлөлийн даргын тэтгэлэг",
-                  "ЭЕШ-ийн 650-аас дээш оноотой багш мэргэжлээр элсэгчид, 4 жил сургалтын төлбөр 100% чөлөөлнө",
-                  "ЭЕШ-ийн 600-749 оноотой элсэгчид эхний жил сургалтын төлбөрийг 50% чөлөөлнө",
-                  "500-599 оноотой элсэгчийн эхний жил сургалтын төлбөрийг 50% чөлөөлнө",
-                  "Хөгжлийн бэрхшээлтэй болон бүтэн өнчин элсэгчийг нэн тэргүүнд Боловсролын зээлийн санд хамруулна",
-                  "Ховд аймгийн Засаг даргын нэрэмжит тэтгэлэг, хөнгөлөлт",
-                ].map((el, index) => {
-                  return (
-                    <Stack key={index} direction="row" spacing={3}>
-                      <CheckCircleOutlineIcon
-                        color="primary"
-                        fontSize="small"
-                      />
-                      <Typography sx={{ fontSize: 14, textAlign: "justify" }}>
-                        {el}
-                      </Typography>
-                    </Stack>
-                  );
-                })}
-              </Stack>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Box p={2}>
-              <Stack spacing={4}>
-                <Typography
-                  sx={{ textAlign: "center" }}
-                  variant="h6"
-                  color="initial"
-                >
-                  Боловсролын зээлийн сангийн буцалтгүй тусламж
-                </Typography>
-                {[
-                  "Хөдөлмөрийн чадвараа бүрэн алдсан гишүүнтэй  өрхийн нэг суралцагч",
-                  "ХИС-ийн удирдах зөвлөлийн даргын тэтгэлэг",
-                  "Өөрөө хөгжлийн бэрхшээлтэй суралцагч",
-                  "Бүтэн өнчин суралцагч",
-                  "Эцэг, эх нь хоёулаа хөгжлийн бэрхшээлтэй суралцагч",
-                  "Цаатан өрхийн суралцагч",
-                  "Багшлах дадлагын тэтгэлэг",
-                  "Замын зардал",
-                ].map((el, index) => {
-                  return (
-                    <Stack key={index} direction="row" spacing={3}>
-                      <CheckCircleOutlineIcon
-                        color="primary"
-                        fontSize="small"
-                      />
-                      <Typography sx={{ fontSize: 14, textAlign: "justify" }}>
-                        {el}
-                      </Typography>
-                    </Stack>
-                  );
-                })}
-              </Stack>
-            </Box>
-          </Grid>
-          {/* ----------------------- */}
-          <WhySchool />
+          })}{" "}
         </Grid>
+        <Grid xs={12}>
+          <Stack alignItems="center" my={5} spacing={0.5}>
+            <Typography variant="h5">ХӨНГӨЛӨЛТ УРАМШУУЛАЛ</Typography>
+            <Box width={80} borderBottom={2} borderColor="#2C75E4"></Box>
+          </Stack>
+        </Grid>
+
+        {/* ----------------------- */}
       </Container>
+      <Box sx={{ backgroundColor: "#F0F4FA", color: "#273044" }}>
+        <Container maxWidth="lg">
+          <Grid container>
+            <Grid item xs={12} md={6}>
+              <Box p={2}>
+                <Stack spacing={4}>
+                  <Typography sx={{ textAlign: "center" }} variant="h6">
+                    Ховд их сургуулийн тэтгэлэг, хөнгөлөлт
+                  </Typography>
+                  {[
+                    "“ХИС-ийн захирлын нэрэмжит тэтгэлэг” - ЭЕШ-ийн 750-аас дээш оноотой элсэгчид 4 жил сургалтын төлбөрийг 100% чөлөөлнө",
+                    "ХИС-ийн удирдах зөвлөлийн даргын тэтгэлэг",
+                    "ЭЕШ-ийн 650-аас дээш оноотой багш мэргэжлээр элсэгчид, 4 жил сургалтын төлбөр 100% чөлөөлнө",
+                    "ЭЕШ-ийн 600-749 оноотой элсэгчид эхний жил сургалтын төлбөрийг 50% чөлөөлнө",
+                    "500-599 оноотой элсэгчийн эхний жил сургалтын төлбөрийг 50% чөлөөлнө",
+                    "Хөгжлийн бэрхшээлтэй болон бүтэн өнчин элсэгчийг нэн тэргүүнд Боловсролын зээлийн санд хамруулна",
+                    "Ховд аймгийн Засаг даргын нэрэмжит тэтгэлэг, хөнгөлөлт",
+                  ].map((el, index) => {
+                    return (
+                      <Stack key={index} direction="row" spacing={3}>
+                        <CheckCircleOutlineIcon
+                          color="primary"
+                          fontSize="small"
+                        />
+                        <Typography sx={{ fontSize: 14, textAlign: "justify" }}>
+                          {el}
+                        </Typography>
+                      </Stack>
+                    );
+                  })}
+                </Stack>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box p={2}>
+                <Stack spacing={4}>
+                  <Typography sx={{ textAlign: "center" }} variant="h6">
+                    Боловсролын зээлийн сангийн буцалтгүй тусламж
+                  </Typography>
+                  {[
+                    "Хөдөлмөрийн чадвараа бүрэн алдсан гишүүнтэй  өрхийн нэг суралцагч",
+                    "ХИС-ийн удирдах зөвлөлийн даргын тэтгэлэг",
+                    "Өөрөө хөгжлийн бэрхшээлтэй суралцагч",
+                    "Бүтэн өнчин суралцагч",
+                    "Эцэг, эх нь хоёулаа хөгжлийн бэрхшээлтэй суралцагч",
+                    "Цаатан өрхийн суралцагч",
+                    "Багшлах дадлагын тэтгэлэг",
+                    "Замын зардал",
+                  ].map((el, index) => {
+                    return (
+                      <Stack key={index} direction="row" spacing={3}>
+                        <CheckCircleOutlineIcon
+                          color="primary"
+                          fontSize="small"
+                        />
+                        <Typography sx={{ fontSize: 14, textAlign: "justify" }}>
+                          {el}
+                        </Typography>
+                      </Stack>
+                    );
+                  })}
+                </Stack>
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      <WhySchool />
     </>
   );
 };

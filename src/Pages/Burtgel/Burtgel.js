@@ -5,6 +5,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import BurtgelBachelors from "./BurtgelBachelors";
+import Masters from "./Masters";
 
 const Burtgel = () => {
   const [value, setValue] = React.useState("1");
@@ -29,7 +30,9 @@ const Burtgel = () => {
           <TabPanel value="1">
             <BurtgelBachelors />
           </TabPanel>
-          <TabPanel value="2">МАГИСТРЫН БҮРТГЭЛ</TabPanel>
+          <TabPanel value="2">
+            <Masters />
+          </TabPanel>
         </TabContext>
       </Box>
     </Container>

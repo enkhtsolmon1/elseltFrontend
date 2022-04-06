@@ -44,7 +44,8 @@ function HideOnScroll(props) {
   );
 }
 const TopNav = (props) => {
-  const { LoginBachelor, bacheUser, setBacheUser } = useContext(ElseltCTX);
+  const { LoginBachelor, bacheUser, setBacheUser, masterUser, setMasterUser } =
+    useContext(ElseltCTX);
 
   let location = useLocation();
   let navigate = useNavigate();
@@ -99,11 +100,19 @@ const TopNav = (props) => {
                     color: "#07158F",
                   }}
                 >
-                  <Typography sx={{ fontSize: 20 }} color="inherit" noWrap>
+                  <Typography
+                    sx={{ fontSize: 20, fontFamily: "nunito" }}
+                    color="inherit"
+                  >
                     <b>ХОВД</b>
                   </Typography>
-                  <Typography sx={{ fontSize: 14 }}>ИХ СУРГУУЛЬ</Typography>
-                  <Typography sx={{ fontSize: 10 }} variant="caption">
+                  <Typography sx={{ fontSize: 14, fontFamily: "nunito" }}>
+                    ИХ СУРГУУЛЬ
+                  </Typography>
+                  <Typography
+                    sx={{ fontSize: 10, fontFamily: "nunito" }}
+                    variant="caption"
+                  >
                     SINCE 1979
                   </Typography>
                 </Stack>
@@ -131,22 +140,30 @@ const TopNav = (props) => {
                       mt={1}
                       borderBottom={active === el.to ? 2 : 0}
                       borderColor="#623CEA"
+                      sx={{ fontFamily: "nunito" }}
                     >
                       {el.name}
                     </Box>
                   </Button>
                 );
               })}
-              {bacheUser.success ? (
+              {bacheUser.success || masterUser.success ? (
                 <>
                   <Button
+                    sx={{ fontFamily: "nunito" }}
                     color="primary"
                     onClick={() => {
-                      navigate("profile");
+                      if (bacheUser.success) {
+                        navigate("profile");
+                      } else if (masterUser.success) {
+                        navigate("masterprofile");
+                      }
+                      setActive("profile");
                     }}
                   >
                     <Box ml={2} mt={1} borderColor="#623CEA">
                       {bacheUser.user.fname}
+                      {masterUser.user.firstname}
                     </Box>
                   </Button>
                   <IconButton
@@ -157,6 +174,7 @@ const TopNav = (props) => {
                         token: "",
                         user: {},
                       });
+                      setMasterUser({ success: false, token: "", user: {} });
                       navigate("/home");
                     }}
                   >
@@ -164,30 +182,59 @@ const TopNav = (props) => {
                   </IconButton>
                 </>
               ) : (
-                <Button
-                  size="small"
-                  onClick={() => {
-                    setActive("login");
-                    handleClickOpen();
-                  }}
-                  sx={{
-                    color: active === "login" ? "#623CEA" : "#000",
-                    "&:hover": {
-                      color: "#623CEA",
-                    },
-                    display: { xs: "none", md: "block" },
-                  }}
-                  variant="text"
-                >
-                  <Box
-                    ml={2}
-                    mt={1}
-                    borderBottom={active === "login" ? 2 : 0}
-                    borderColor="#623CEA"
+                <>
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      setActive("burtgel");
+                      navigate("burtgel");
+                    }}
+                    sx={{
+                      color: active === "burtgel" ? "#623CEA" : "#000",
+                      "&:hover": {
+                        color: "#623CEA",
+                      },
+                      display: { xs: "none", md: "block" },
+                      fontFamily: "nunito",
+                    }}
+                    variant="text"
                   >
-                    Нэвтрэх
-                  </Box>
-                </Button>
+                    <Box
+                      sx={{ fontFamily: "nunito" }}
+                      ml={2}
+                      mt={1}
+                      borderBottom={active === "burtgel" ? 2 : 0}
+                      borderColor="#623CEA"
+                    >
+                      Бүртгүүлэх
+                    </Box>
+                  </Button>
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      setActive("login");
+                      handleClickOpen();
+                    }}
+                    sx={{
+                      color: active === "login" ? "#623CEA" : "#000",
+                      "&:hover": {
+                        color: "#623CEA",
+                      },
+                      display: { xs: "none", md: "block" },
+                      fontFamily: "nunito",
+                    }}
+                    variant="text"
+                  >
+                    <Box
+                      ml={2}
+                      mt={1}
+                      borderBottom={active === "login" ? 2 : 0}
+                      borderColor="#623CEA"
+                    >
+                      Нэвтрэх
+                    </Box>
+                  </Button>
+                </>
               )}
             </Toolbar>
           </Container>
@@ -202,10 +249,6 @@ const nav = [
   {
     name: "Нүүр",
     to: "home",
-  },
-  {
-    name: "Бүртгэл",
-    to: "burtgel",
   },
   {
     name: "Хөтөлбөр",

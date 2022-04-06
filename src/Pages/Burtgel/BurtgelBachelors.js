@@ -15,7 +15,14 @@ import ElseltCTX from "../../Context/ElseltContext";
 const BurtgelBachelors = () => {
   const navigate = useNavigate();
 
-  const { bacheUser, addBachelor, addressState } = useContext(ElseltCTX);
+  const { bacheUser, addBachelor, addressState, masterUser } =
+    useContext(ElseltCTX);
+  {
+    bacheUser.success && navigate("/profile");
+  }
+  {
+    masterUser.success && navigate("/masterprofile");
+  }
   const [bachelor, setBachelor] = useState({
     password: "",
     lname: "",
@@ -38,10 +45,6 @@ const BurtgelBachelors = () => {
       });
     }
   };
-  {
-    bacheUser.success && navigate("/profile");
-  }
-
   return (
     <Stack alignItems="center" justifyContent="center" width="100%">
       <Grid
@@ -54,12 +57,9 @@ const BurtgelBachelors = () => {
         <Grid item xs={12}>
           <TextField
             onChange={handleChange("examloc")}
-            fullWidth
-            variant="outlined"
+            size="small"
             label="Аймаг сонгох"
-            InputLabelProps={{
-              shrink: true,
-            }}
+            fullWidth
             select
             SelectProps={{ native: true }}
           >
@@ -157,7 +157,7 @@ const BurtgelBachelors = () => {
             </Button>
           </Grow>
         </Grid>
-      </Grid>{" "}
+      </Grid>
     </Stack>
   );
 };

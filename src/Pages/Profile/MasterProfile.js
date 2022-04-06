@@ -47,30 +47,21 @@ function a11yProps(index) {
   };
 }
 
-const Profile = () => {
+const MasterProfile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     window[`scrollTo`]({ top: 0, behavior: `smooth` });
 
-    // getBachelor(bacheUser.user._id);
+    // getmaster(bacheUser.user._id);
   }, []);
 
-  const {
-    alert,
-    setAlert,
-    addBachelor,
-    bachelors,
-    allBachelors,
-    bacheUser,
-    getBachelor,
-    updateBachelors,
-    addressState,
-  } = useContext(ElseltCTX);
+  const { masterOne, masterUser, updatemasterOne, addressState } =
+    useContext(ElseltCTX);
 
-  const [bachelor, setBachelor] = useState({});
+  const [master, setmaster] = useState({});
   const handleChange = (prop) => (event) => {
-    setBachelor({ ...bachelor, [prop]: event.target.value });
+    setmaster({ ...master, [prop]: event.target.value });
   };
 
   const [value, setValue] = React.useState(0);
@@ -82,11 +73,12 @@ const Profile = () => {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
+  console.log(masterOne);
   return (
     <>
-      {!bacheUser.success && navigate("/burtgel")}
+      {!masterUser.success && navigate("/burtgel")}
 
-      {bachelors.success && (
+      {masterOne.success && (
         <Container maxWidth="lg" style={{ marginBottom: 20 }}>
           <Grid container justify="flex-start" spacing={2}>
             <Grid container justify="flex-start" item xs={12}>
@@ -100,51 +92,28 @@ const Profile = () => {
             <Grid item xs={12} md={3}>
               <Box style={{ height: "100%" }} boxShadow={3} p={2}>
                 <Grid container justify="center" spacing={2}>
-                  <Grid container justify="center" item xs={12}>
-                    <img
-                      src={`https://eyesh.eec.mn/uploads/pupils/${bachelors.bachelor.pupil_id}.jpg`}
-                      width="150"
-                    />
-                    {/* <img
-                      src="https://image.flaticon.com/icons/png/512/3135/3135755.png"
-                      width="150px"
-                    /> */}
+                  <Grid item xs={12}>
+                    <b> Овог:</b> {masterOne.master.lastname}
                   </Grid>
                   <Grid item xs={12}>
-                    <Chip
-                      style={{
-                        marginTop: 10,
-                        backgroundColor: "#27ae60",
-                        color: "#fff",
-                      }}
-                      size="small"
-                      label={bachelors.bachelor.status}
-                    />
+                    <b> Нэр:</b> {masterOne.master.firstname}
                   </Grid>
                   <Grid item xs={12}>
-                    <b> Овог:</b> {bachelors.bachelor.lname}
+                    <b> Регистер:</b> {masterOne.master.regnum}
                   </Grid>
                   <Grid item xs={12}>
-                    <b> Нэр:</b> {bachelors.bachelor.fname}
+                    <b> Email:</b> {masterOne.master.email}
                   </Grid>
                   <Grid item xs={12}>
-                    <b> Регистер:</b> {bachelors.bachelor.regnum}
+                    <b> Утас:</b> {masterOne.master.phone1}
                   </Grid>
-                  <Grid item xs={12}>
-                    <b> Email:</b> {bachelors.bachelor.email}
-                  </Grid>
-                  <Grid item xs={12}>
-                    <b> Утас:</b> {bachelors.bachelor.phone}
-                  </Grid>
-                  <Grid item xs={12}>
-                    <b> Бүртгэлийн дугаар:</b> {bachelors.bachelor.pupil_id}
-                  </Grid>
+
                   <Grid container justify="center" item xs={12}>
                     <Button
                       size="medium"
                       onClick={() => {
                         handleChange1(1);
-                        // addBachelor(bachelor);
+                        // addmaster(master);
                       }}
                       fullWidth
                       variant="outlined"
@@ -180,7 +149,7 @@ const Profile = () => {
                       <Typography variant="h6">
                         Таны сонгосон хөтөлбөр:
                       </Typography>
-                      {bachelors.bachelor.program ? (
+                      {masterOne.master.program ? (
                         <Chip
                           style={{
                             marginLeft: 10,
@@ -188,7 +157,7 @@ const Profile = () => {
                             color: "#fff",
                           }}
                           size="medium"
-                          label={bachelors.bachelor.program.name}
+                          label={masterOne.master.program.name}
                         />
                       ) : (
                         <Chip
@@ -212,8 +181,8 @@ const Profile = () => {
                     <Grid item xs={12}>
                       <TextField
                         size="small"
-                        defaultValue={bachelors.bachelor.lname}
-                        onChange={handleChange("lname")}
+                        defaultValue={masterOne.master.lastname}
+                        onChange={handleChange("lastname")}
                         required
                         style={{ maxWidth: 350 }}
                         fullWidth
@@ -224,10 +193,10 @@ const Profile = () => {
                     <Grid item xs={12}>
                       <TextField
                         size="small"
-                        defaultValue={bachelors.bachelor.fname}
+                        defaultValue={masterOne.master.firstname}
                         style={{ maxWidth: 350 }}
                         fullWidth
-                        onChange={handleChange("fname")}
+                        onChange={handleChange("firstname")}
                         label="Нэр"
                         variant="outlined"
                       />
@@ -235,7 +204,7 @@ const Profile = () => {
                     <Grid item xs={12}>
                       <TextField
                         size="small"
-                        defaultValue={bachelors.bachelor.regnum}
+                        defaultValue={masterOne.master.regnum}
                         style={{ maxWidth: 350 }}
                         fullWidth
                         onChange={handleChange("regnum")}
@@ -246,7 +215,7 @@ const Profile = () => {
                     <Grid item xs={12}>
                       <TextField
                         size="small"
-                        defaultValue={bachelors.bachelor.email}
+                        defaultValue={masterOne.master.email}
                         style={{ maxWidth: 350 }}
                         fullWidth
                         onChange={handleChange("email")}
@@ -258,24 +227,23 @@ const Profile = () => {
                     <Grid item xs={12}>
                       <TextField
                         size="small"
-                        defaultValue={bachelors.bachelor.phone}
+                        defaultValue={masterOne.master.phone1}
                         style={{ maxWidth: 350 }}
                         fullWidth
-                        onChange={handleChange("phone")}
+                        onChange={handleChange("phone1")}
                         label="Утас"
                         variant="outlined"
                         type="number"
                       />
-                    </Grid>
+                    </Grid>{" "}
                     <Grid item xs={12}>
                       <TextField
                         size="small"
-                        disabled
-                        defaultValue={bachelors.bachelor.pupil_id}
+                        defaultValue={masterOne.master.phone2}
                         style={{ maxWidth: 350 }}
                         fullWidth
-                        onChange={handleChange("pupil_id")}
-                        label="Бүртгэлийн дугаар"
+                        onChange={handleChange("phone2")}
+                        label="Холбоо барих хүний дугаар"
                         variant="outlined"
                         type="number"
                       />
@@ -293,7 +261,7 @@ const Profile = () => {
                         }}
                         select
                         SelectProps={{ native: true }}
-                        defaultValue={bachelors.bachelor.gender}
+                        defaultValue={masterOne.master.gender}
                       >
                         <option aria-label="None" value="" />l
                         {["Эрэгтэй", "Эмэгтэй"].map((el, index) => (
@@ -302,37 +270,89 @@ const Profile = () => {
                           </option>
                         ))}
                       </TextField>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        size="small"
+                        defaultValue={masterOne.master.university}
+                        style={{ maxWidth: 350 }}
+                        fullWidth
+                        onChange={handleChange("university")}
+                        label="Төгссөн сургууль"
+                        variant="outlined"
+                        type="text"
+                      />
                     </Grid>{" "}
                     <Grid item xs={12}>
                       <TextField
-                        variant="outlined"
-                        onChange={handleChange("examloc")}
-                        label="Шалгалт өгөх газар"
-                        fullWidth
                         size="small"
+                        defaultValue={masterOne.master.bakDipNum}
                         style={{ maxWidth: 350 }}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        select
-                        SelectProps={{ native: true }}
-                        defaultValue={bachelors.bachelor.examloc}
-                      >
-                        <option aria-label="None" value="" />l
-                        {addressState.address.map((el, index) => (
-                          <option key={index} value={el.aimagCity}>
-                            {el.aimagCity}
-                          </option>
-                        ))}
-                      </TextField>
+                        fullWidth
+                        onChange={handleChange("bakDipNum")}
+                        label="Бакалаврын дипломын дугаар"
+                        variant="outlined"
+                        type="text"
+                      />
+                    </Grid>{" "}
+                    <Grid item xs={12}>
+                      <TextField
+                        size="small"
+                        defaultValue={masterOne.master.magDipNum}
+                        style={{ maxWidth: 350 }}
+                        fullWidth
+                        onChange={handleChange("magDipNum")}
+                        label="Магистрын дипломын дугаар"
+                        variant="outlined"
+                        type="text"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        size="small"
+                        defaultValue={masterOne.master.address}
+                        style={{ maxWidth: 350 }}
+                        fullWidth
+                        onChange={handleChange("address")}
+                        label="Гэрийн хаяг"
+                        variant="outlined"
+                        type="text"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        size="small"
+                        defaultValue={masterOne.master.social}
+                        style={{ maxWidth: 350 }}
+                        fullWidth
+                        onChange={handleChange("social")}
+                        label="Олон нийтийн сүлжээний хаяг"
+                        variant="outlined"
+                        type="text"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        size="small"
+                        defaultValue={masterOne.master.social}
+                        style={{ maxWidth: 350 }}
+                        fullWidth
+                        onChange={handleChange("social")}
+                        label="Олон нийтийн сүлжээний хаяг"
+                        variant="outlined"
+                        type="text"
+                      />
                     </Grid>
                     <Grid item xs={12}>
                       <Button
                         size="small"
                         onClick={() => {
-                          updateBachelors(bachelors.bachelor._id, bachelor);
+                          // updatemasterOne({
+                          //   id: masterOne.master._id,
+                          //   editmasterOne: master,
+                          // });
                           handleChange1(0);
-                          setBachelor({});
+                          setmaster({});
                         }}
                         variant="outlined"
                         color="primary"
@@ -351,4 +371,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default MasterProfile;
