@@ -18,26 +18,26 @@ const Home = () => {
         <Grid container>
           {[
             {
-              title: "СУРГАЛТЫН ЧИГЛЭЛТ",
-              body: "Your chance to be a trending expert in IT industries and make a successful career after completion of our courses.",
+              title: "АЛСЫН ХАРАА",
+              body: "Тогтвортой хөгжлийн үзэл баримтлалыг үйл ажиллагаандаа нэвтрүүлсэн бүс нутгийн хөгжлийн тулгуур салбаруудын эрэлт хэрэгцээг хангах чадвар бүхий судалгааны тэргүүлэгч их сургууль болно.",
               color: "#10C45C",
               icon: <SchoolIcon fontSize="large" />,
             },
             {
-              title: "НОМ, НОМЫН САН",
-              body: "Ховд их сургууль бол 10 сая гаруй ном, кино болон бусад зүйлсийг зээлж авах боломжтой, дэлхийн хамгийн завгүй нийтийн номын сангийн нэг юм.",
+              title: "ЭРХЭМ ЗОРИЛГО",
+              body: "Алтайн бүсийн тогтвортой хөгжлийн хэрэгцээг хангах, тасралтгүй хөгжих чадвартай, төлөвшсөн мэргэжилтэн, судлаачдыг бэлтгэж, орон нутгийн хөгжлийг загварчлагч сургалт, судалгааны их сургууль байна.",
               color: "#FDC735",
               icon: <BookmarksIcon fontSize="large" />,
             },
             {
-              title: "МЭРГЭШСЭН БАГШ НАР",
-              body: "Get professional education and reliable consultation by our team of certified teachers and instructors.",
+              title: "ЧАНАРЫГ ЭРХЭМЛЭГЧ",
+              body: "Бидний сургаж, хүмүүжүүлсэн оюутан суралцагчид нийгмийн баялгийг бүтээгчид болох тул энэхүү хариуцлагатай үүргээ гүнээ ухамсарлаж, аливаад чин сэтгэлээсээ хандан, чанартай үр дүнгийн төлөө зорилготойгоор хөдөлмөрлөхийг эрхэмлэнэ.",
               color: "#307AD5",
               icon: <DiamondIcon fontSize="large" />,
             },
             {
-              title: "CERTIFICATION",
-              body: "Upon successful completion receive a certificate showing your achievement for completing one of our rigorous classes.",
+              title: "МАНЛАЙЛЛЫГ ЭРХЭМЛЭГЧ",
+              body: "Шинэ санал, санаачилгыг өдөөн урамшуулж, оновчтой шийдэл, зөв хэвшлийг нэвтрүүлэхийг нийтээр дэмжиж, бүтээлч үйл ажиллагаагаар бусдыгаа үлгэрлэхийг эрхэмлэнэ.",
               color: "#E948AE",
               icon: <WorkspacePremiumIcon fontSize="large" />,
             },
@@ -61,10 +61,12 @@ const Home = () => {
                 >
                   <Stack spacing={1} justifyContent="center">
                     {el.icon}
-                    <Typography sx={{ fontSize: 18 }}>
+                    <Typography sx={{ fontSize: 16 }}>
                       <b>{el.title}</b>
                     </Typography>
-                    <Typography sx={{ fontSize: 14 }}>{el.body}</Typography>
+                    <Typography sx={{ fontSize: 12, textAlign: "justify" }}>
+                      {el.body}
+                    </Typography>
                   </Stack>
                 </Box>
               </Grid>

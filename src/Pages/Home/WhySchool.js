@@ -94,11 +94,11 @@ const WhySchool = () => {
                 <Typography sx={{ fontSize: 36 }}>
                   Яагаад Ховд их сургууль
                 </Typography>
-                <Typography sx={{ fontSize: 16 }}>
+                {/* <Typography sx={{ fontSize: 16 }}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua
                   Ut enim ad minim veniam magna aliqua eiusmod tempor.
-                </Typography>
+                </Typography> */}
                 <Grid container>
                   <Grid item xs={6}>
                     <Stack direction="row" spacing={1}>

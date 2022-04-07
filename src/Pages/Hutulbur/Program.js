@@ -23,8 +23,12 @@ import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import SchoolIcon from "@mui/icons-material/School";
 import { useNavigate } from "react-router-dom";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import { useSnackbar } from "notistack";
 const Program = () => {
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     LoadPrograms();
@@ -69,6 +73,27 @@ const Program = () => {
     setOpen(false);
     setData(null);
   };
+  const [edu, setEdu] = React.useState("");
+  const [pform, setPform] = React.useState("");
+
+  const handleChange1 = (event, newAlignment) => {
+    if (newAlignment === null) {
+      setEdu("");
+    } else {
+      setEdu(newAlignment);
+    }
+  };
+  const handleChange2 = (event, newAlignment) => {
+    if (newAlignment === null) {
+      setPform("");
+    } else {
+      setPform(newAlignment);
+    }
+  };
+  const alertCall = (message, variant) => {
+    // variant could be success, error, warning, info, or default
+    enqueueSnackbar(message, { variant });
+  };
   return (
     <Container maxWidth="xl">
       <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose}>
@@ -90,19 +115,27 @@ const Program = () => {
             <Button
               onClick={() => {
                 if (bacheUser.success) {
-                  updateBachelors(bacheUser.user._id, {
-                    program: data._id,
-                    schoolID: data.school_id._id,
-                    department: data.department_id_id,
-                  });
-                  navigate("/profile");
+                  if (data.EduLevel === "Бакалавр") {
+                    updateBachelors(bacheUser.user._id, {
+                      program: data._id,
+                      schoolID: data.school_id._id,
+                      department: data.department_id_id,
+                    });
+                    navigate("/profile");
+                  } else {
+                    alertCall("Бакалаврын хөтөлбөр сонгоно уу!", "warning");
+                  }
                 } else if (masterUser.success) {
-                  updateMaster(masterUser.user._id, {
-                    program: data._id,
-                    schoolID: data.school_id._id,
-                    department: data.department_id_id,
-                  });
-                  navigate("/masterprofile");
+                  if (data.EduLevel === "Магистр") {
+                    updateMaster(masterUser.user._id, {
+                      program: data._id,
+                      schoolID: data.school_id._id,
+                      department: data.department_id_id,
+                    });
+                    navigate("/masterprofile");
+                  } else {
+                    alertCall("Магистрын хөтөлбөр сонгоно уу!", "warning");
+                  }
                 }
               }}
               variant="contained"
@@ -129,7 +162,7 @@ const Program = () => {
         <Box
           sx={{
             width: "100%",
-            my: 5,
+            my: 2,
             maxWidth: "100%",
           }}
         >
@@ -160,90 +193,118 @@ const Program = () => {
       </Stack>
 
       <Grid container spacing={2}>
-        {programState.programs.map((el, index) => {
-          return (
-            <Grid item xs={12} md={3}>
-              <Card sx={{ boxShadow: 0, borderRadius: 0, height: "100%" }}>
-                <CardActionArea sx={{ height: 400 }}>
-                  <CardMedia
-                    component="img"
-                    height="200"
-                    image={`http://khu.edu.mn:3000/upload/images/${el.pathImage}`}
-                  />
-                  <CardContent>
-                    <Typography
-                      sx={{
-                        fontSize: 16,
-                        color: "#623CEA",
-                        textAlign: "center",
-                      }}
-                      component="div"
-                    >
-                      {el.name}
-                    </Typography>
-                    <Stack mt={1}>
-                      <Stack direction="row" spacing={1}>
-                        <SchoolIcon color="primary" fontSize="small" />
-                        <Typography sx={{ fontSize: 14 }}>
-                          {el.EduLevel} ( {el.form} )
-                        </Typography>
-                      </Stack>
-                      <Stack direction="row" spacing={1}>
-                        <AccessTimeFilledIcon
-                          color="primary"
-                          fontSize="small"
-                        />
-                        <Typography sx={{ fontSize: 14 }}>
-                          {el.learningTime} жил
-                        </Typography>
-                      </Stack>
+        <Grid item xs={12}>
+          <ToggleButtonGroup
+            size="small"
+            color="primary"
+            value={edu}
+            exclusive
+            onChange={handleChange1}
+          >
+            <ToggleButton value="Бакалавр">Бакалавр</ToggleButton>
+            <ToggleButton value="Магистр">Магистр</ToggleButton>
+            <ToggleButton value="Доктор">Доктор</ToggleButton>
+          </ToggleButtonGroup>
+          <ToggleButtonGroup
+            sx={{ ml: { xs: 0, sm: 2 }, mt: { xs: 2, sm: 2 } }}
+            size="small"
+            color="primary"
+            value={pform}
+            exclusive
+            onChange={handleChange2}
+          >
+            <ToggleButton value="Өдөр">Өдөр</ToggleButton>
+            <ToggleButton value="Орой">Орой</ToggleButton>
+            <ToggleButton value="Эчнээ">Эчнээ</ToggleButton>
+          </ToggleButtonGroup>
+        </Grid>
+        {programState.programs
+          .filter((el) => el.EduLevel.includes(edu))
+          .filter((el) => el.form.includes(pform))
+          .map((el, index) => {
+            return (
+              <Grid item xs={12} md={3}>
+                <Card sx={{ boxShadow: 0, borderRadius: 0, height: "100%" }}>
+                  <CardActionArea sx={{ height: 400 }}>
+                    <CardMedia
+                      component="img"
+                      height="200"
+                      image={`http://khu.edu.mn:3000/upload/images/${el.pathImage}`}
+                    />
+                    <CardContent>
+                      <Typography
+                        sx={{
+                          fontSize: 16,
+                          color: "#623CEA",
+                          textAlign: "center",
+                        }}
+                        component="div"
+                      >
+                        {el.name}
+                      </Typography>
+                      <Stack mt={1}>
+                        <Stack direction="row" spacing={1}>
+                          <SchoolIcon color="primary" fontSize="small" />
+                          <Typography sx={{ fontSize: 14 }}>
+                            {el.EduLevel} ( {el.form} )
+                          </Typography>
+                        </Stack>
+                        <Stack direction="row" spacing={1}>
+                          <AccessTimeFilledIcon
+                            color="primary"
+                            fontSize="small"
+                          />
+                          <Typography sx={{ fontSize: 14 }}>
+                            {el.learningTime} жил
+                          </Typography>
+                        </Stack>
 
-                      <Stack direction="row" spacing={1}>
-                        <LibraryBooksIcon color="primary" fontSize="small" />
-                        <Typography sx={{ fontSize: 14 }}>
-                          {el.esh.map((el, index) => {
-                            return (
-                              <Typography key={index} variant="caption">
-                                {el.eshHicheel}{" "}
-                              </Typography>
-                            );
-                          })}
-                        </Typography>
+                        <Stack direction="row" spacing={1}>
+                          <LibraryBooksIcon color="primary" fontSize="small" />
+                          <Typography sx={{ fontSize: 14 }}>
+                            {el.esh.map((el, index) => {
+                              return (
+                                <Typography key={index} variant="caption">
+                                  {el.eshHicheel}{" "}
+                                </Typography>
+                              );
+                            })}
+                          </Typography>
+                        </Stack>
                       </Stack>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Stack justifyContent="flex-end" width="100%">
+                      <Button
+                        onClick={() => {
+                          setData({ ...el });
+                          handleClickOpen();
+                        }}
+                        size="small"
+                        sx={{
+                          fontSize: 10,
+                          mx: 10,
+                          backgroundColor: "#2C75E4",
+                          borderRadius: 5,
+                          transition: "0.3s",
+                          "&:hover": {
+                            mx: 5,
+                            backgroundColor: "#FBBC05",
+                            color: "#000",
+                          },
+                        }}
+                        variant="contained"
+                        color="primary"
+                      >
+                        Дэлгэрэнгүй үзэх
+                      </Button>
                     </Stack>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Stack justifyContent="flex-end" width="100%">
-                    <Button
-                      onClick={() => {
-                        setData({ ...el });
-                        handleClickOpen();
-                      }}
-                      size="small"
-                      sx={{
-                        fontSize: 10,
-                        mx: 10,
-                        backgroundColor: "#2C75E4",
-                        borderRadius: 5,
-                        transition: "0.3s",
-                        "&:hover": {
-                          mx: 5,
-                          backgroundColor: "#FBBC05",
-                          color: "#000",
-                        },
-                      }}
-                      variant="contained"
-                      color="primary"
-                    >
-                      Дэлгэрэнгүй үзэх
-                    </Button>
-                  </Stack>
-                </CardActions>
-              </Card>
-            </Grid>
-          );
-        })}
+                  </CardActions>
+                </Card>
+              </Grid>
+            );
+          })}
       </Grid>
     </Container>
   );
