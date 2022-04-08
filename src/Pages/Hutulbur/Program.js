@@ -126,7 +126,7 @@ const Program = () => {
                     alertCall("Бакалаврын хөтөлбөр сонгоно уу!", "warning");
                   }
                 } else if (masterUser.success) {
-                  if (data.EduLevel === "Магистр") {
+                  if (data.EduLevel !== "Бакалавр") {
                     updateMaster(masterUser.user._id, {
                       program: data._id,
                       schoolID: data.school_id._id,
@@ -134,7 +134,10 @@ const Program = () => {
                     });
                     navigate("/masterprofile");
                   } else {
-                    alertCall("Магистрын хөтөлбөр сонгоно уу!", "warning");
+                    alertCall(
+                      "Магистр, Докторын хөтөлбөр сонгоно уу!",
+                      "warning"
+                    );
                   }
                 }
               }}

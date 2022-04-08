@@ -1,21 +1,13 @@
-import {
-  Button,
-  Container,
-  Divider,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
+import { Button, Grid, TextField } from "@mui/material";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ElseltCTX from "../../Context/ElseltContext";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
+
 const Login = ({ handleClose }) => {
-  const navigate = useNavigate();
   const { LoginBachelor, bacheUser, masterUser, LoginMasters } =
     useContext(ElseltCTX);
   const [bLogin, setBlogin] = useState({
@@ -43,7 +35,11 @@ const Login = ({ handleClose }) => {
         <FormControl>
           <RadioGroup row value={value} onChange={handleChange1}>
             <FormControlLabel value="b" control={<Radio />} label="Бакалавр" />
-            <FormControlLabel value="m" control={<Radio />} label="Магистр" />
+            <FormControlLabel
+              value="m"
+              control={<Radio />}
+              label="Магистр, Доктор"
+            />
           </RadioGroup>
         </FormControl>
       </Grid>
@@ -91,9 +87,9 @@ const Login = ({ handleClose }) => {
           fullWidth
           variant="contained"
           onClick={() => {
-            if (value == "b") {
+            if (value === "b") {
               LoginBachelor(bLogin);
-            } else if (value == "m") {
+            } else if (value === "m") {
               LoginMasters(bLogin);
             }
           }}

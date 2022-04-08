@@ -24,7 +24,7 @@ const Burtgel = () => {
               aria-label="lab API tabs example"
             >
               <Tab label="БАКАЛАВРЫН БҮРТГЭЛ" value="1" />
-              <Tab label="МАГИСТРЫН БҮРТГЭЛ" value="2" />
+              <Tab label="МАГИСТР, ДОКТОРЫН БҮРТГЭЛ" value="2" />
             </TabList>
           </Box>
           <TabPanel value="1">
