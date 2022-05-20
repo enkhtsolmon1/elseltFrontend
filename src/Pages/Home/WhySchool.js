@@ -12,8 +12,11 @@ import React from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import Dialog from "@mui/material/Dialog";
+import { useNavigate } from "react-router-dom";
 
 const WhySchool = () => {
+  let navigate = useNavigate();
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -144,6 +147,9 @@ const WhySchool = () => {
                   </Grid>
                 </Grid>
                 <Button
+                  onClick={() => {
+                    navigate("/programs");
+                  }}
                   sx={{
                     backgroundColor: "#2C75E4",
                     borderRadius: 0,
