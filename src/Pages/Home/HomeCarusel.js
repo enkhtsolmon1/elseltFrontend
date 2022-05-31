@@ -54,7 +54,7 @@ function HomeCarusel() {
             <CardMedia image={step.imgPath}>
               <Grid
                 sx={{
-                  backgroundColor: "rgba(0,0,0,0.3)",
+                  backgroundColor: "rgba(0,0,0,0.2)",
                   color: "#fff",
                 }}
                 item

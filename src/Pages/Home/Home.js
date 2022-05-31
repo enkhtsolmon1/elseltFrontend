@@ -9,10 +9,12 @@ import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import WhySchool from "./WhySchool";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import HomeBanner from "./HomeBanner";
 
 const Home = () => {
   return (
     <>
+      <HomeBanner />
       <HomeCarusel />
       <Container maxWidth="lg">
         <Grid container>
@@ -74,7 +76,7 @@ const Home = () => {
           })}{" "}
         </Grid>
         <Grid xs={12}>
-          <Stack alignItems="center" my={5} spacing={0.5}>
+          <Stack alignItems="center" my={3} spacing={0.5}>
             <Typography variant="h5">ХӨНГӨЛӨЛТ УРАМШУУЛАЛ</Typography>
             <Box width={80} borderBottom={2} borderColor="#2C75E4"></Box>
           </Stack>
@@ -82,6 +84,72 @@ const Home = () => {
 
         {/* ----------------------- */}
       </Container>
+      <Grid container>
+        <Grid item xs={12} md={4} sx={{ p: 1 }}>
+          <Box
+            width="100%"
+            height={300}
+            sx={{
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundImage:
+                "url(http://www.khu.edu.mn:3000/upload/programfiles/banner02.jpg)",
+              transition: "0.3s",
+              "&:hover": {
+                transform: "scale(1.2)",
+              },
+            }}
+          ></Box>
+          {/* <img
+            sx={{ "&:hover": { transform: "scale(1.5)" } }}
+            width="100%"
+            src="http://www.khu.edu.mn:3000/upload/programfiles/banner02.jpg"
+            alt=""
+          /> */}
+        </Grid>{" "}
+        <Grid item xs={12} md={4} sx={{ p: 1 }}>
+          <Box
+            width="100%"
+            height={300}
+            sx={{
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundImage:
+                "url(http://www.khu.edu.mn:3000/upload/programfiles/banner03.jpg)",
+              transition: "0.3s",
+              "&:hover": {
+                transform: "scale(1.2)",
+              },
+            }}
+          ></Box>
+          {/* <img
+            width="100%"
+            src="http://www.khu.edu.mn:3000/upload/programfiles/banner03.jpg"
+            alt=""
+          /> */}
+        </Grid>{" "}
+        <Grid item xs={12} md={4} sx={{ p: 1 }}>
+          <Box
+            width="100%"
+            height={300}
+            sx={{
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundImage:
+                "url(http://www.khu.edu.mn:3000/upload/programfiles/banner01.jpg)",
+              transition: "0.3s",
+              "&:hover": {
+                transform: "scale(1.2)",
+              },
+            }}
+          ></Box>
+          {/* <img
+            width="100%"
+            src="http://www.khu.edu.mn:3000/upload/programfiles/banner01.jpg"
+            alt=""
+          /> */}
+        </Grid>
+      </Grid>
       <Box sx={{ backgroundColor: "#F0F4FA", color: "#273044" }}>
         <Container maxWidth="lg">
           <Grid container>

@@ -102,7 +102,7 @@ const TopNav = (props) => {
               />
               <Typography
                 variant="button"
-                fontFamily="nunito"
+                // fontFamily="nunito"
                 sx={{ fontSize: 18 }}
               >
                 Ховд их сургууль{" "}
@@ -369,7 +369,6 @@ const TopNav = (props) => {
                 <>
                   <Button
                     sx={{
-                      fontFamily: "nunito",
                       display: { xs: "none", md: "block" },
                     }}
                     color="primary"
@@ -416,12 +415,12 @@ const TopNav = (props) => {
                         color: "#623CEA",
                       },
                       display: { xs: "none", md: "block" },
-                      fontFamily: "nunito",
+                      // fontFamily: "nunito",
                     }}
                     variant="text"
                   >
                     <Box
-                      sx={{ fontFamily: "nunito" }}
+                      // sx={{ fontFamily: "nunito" }}
                       ml={2}
                       mt={1}
                       borderBottom={active === "burtgel" ? 2 : 0}
@@ -442,7 +441,6 @@ const TopNav = (props) => {
                         color: "#623CEA",
                       },
                       display: { xs: "none", md: "block" },
-                      fontFamily: "nunito",
                     }}
                     variant="text"
                   >
