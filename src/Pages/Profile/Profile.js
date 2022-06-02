@@ -5,7 +5,6 @@ import {
   Container,
   Divider,
   Grid,
-  Grow,
   TextField,
   Typography,
 } from "@mui/material";
@@ -56,17 +55,8 @@ const Profile = () => {
     // getBachelor(bacheUser.user._id);
   }, []);
 
-  const {
-    alert,
-    setAlert,
-    addBachelor,
-    bachelors,
-    allBachelors,
-    bacheUser,
-    getBachelor,
-    updateBachelors,
-    addressState,
-  } = useContext(ElseltCTX);
+  const { bachelors, bacheUser, updateBachelors, addressState } =
+    useContext(ElseltCTX);
 
   const [bachelor, setBachelor] = useState({});
   const handleChange = (prop) => (event) => {
