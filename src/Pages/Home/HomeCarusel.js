@@ -16,9 +16,12 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const images = [
   {
-    label: "San Francisco – Oakland Bay Bridge, United States",
-    imgPath:
-      "https://masterstudy.stylemixthemes.com/ms/wp-content/uploads/sites/4/revslider/home_slider/slide_2.jpg",
+    label: "2",
+    imgPath: "http://www.khu.edu.mn:3000/upload/programfiles/elseltHome.jpg",
+  },
+  {
+    label: "2",
+    imgPath: "http://www.khu.edu.mn:3000/upload/programfiles/elseltHome2.jpg",
   },
 ];
 
@@ -48,13 +51,15 @@ function HomeCarusel() {
         index={activeStep}
         onChangeIndex={handleStepChange}
         enableMouseEvents
+        interval={6000}
       >
         {images.map((step, index) => (
           <Card key={index}>
-            <CardMedia image={step.imgPath}>
+            <CardMedia sx={{}} image={step.imgPath}>
               <Grid
                 sx={{
-                  backgroundColor: "rgba(0,0,0,0.2)",
+                  pt: 20,
+                  backgroundColor: "rgba(0,0,0,0.09)",
                   color: "#fff",
                 }}
                 item
