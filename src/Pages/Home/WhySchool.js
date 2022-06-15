@@ -122,27 +122,40 @@ const WhySchool = () => {
                         Докторын зэрэг
                       </Typography>
                     </Stack>
+                    <Stack direction="row" spacing={1}>
+                      <CheckIcon color="primary" fontSize="small" />
+                      <Typography sx={{ fontSize: 14 }}>
+                        Манай төгсөгчид хаана ч ажиллах чадвартай
+                      </Typography>
+                    </Stack>
                     <Typography variant="h2">40+</Typography>
                     <Typography>Олон жилийн туршлага</Typography>
                   </Grid>
                   <Grid item xs={6}>
                     <Stack direction="row" spacing={1}>
                       <CheckIcon color="primary" fontSize="small" />
+                      <Typography sx={{ fontSize: 14 }}>Хямд зардал</Typography>
+                    </Stack>
+                    <Stack direction="row" spacing={1}>
+                      <CheckIcon color="primary" fontSize="small" />
                       <Typography sx={{ fontSize: 14 }}>
-                        Олон улсын төвүүд
+                        Тэтгэлэг, урамшуулал
                       </Typography>
                     </Stack>
                     <Stack direction="row" spacing={1}>
                       <CheckIcon color="primary" fontSize="small" />
                       <Typography sx={{ fontSize: 14 }}>
-                        Дэлхийн оюутнууд
+                        Гадаад суралцах боломж
                       </Typography>
-                    </Stack>
+                    </Stack>{" "}
                     <Stack direction="row" spacing={1}>
                       <CheckIcon color="primary" fontSize="small" />
-                      <Typography sx={{ fontSize: 14 }}>Төгсөгчид</Typography>
-                    </Stack>
-                    <Typography variant="h2">5K+</Typography>{" "}
+                      <Typography sx={{ fontSize: 14 }}>
+                        Түгжрэлгүй, стрессгүй орчин
+                      </Typography>
+                    </Stack>{" "}
+                    <br />
+                    <Typography variant="h2">5K+</Typography>
                     <Typography>Төгсөгчид</Typography>
                   </Grid>
                 </Grid>

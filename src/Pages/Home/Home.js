@@ -1,4 +1,4 @@
-import { Avatar, Box, Container, Grid, Stack } from "@mui/material";
+import { Box, Container, Grid, Stack } from "@mui/material";
 import React from "react";
 import Typography from "@mui/material/Typography";
 import HomeCarusel from "./HomeCarusel";
@@ -8,8 +8,8 @@ import DiamondIcon from "@mui/icons-material/Diamond";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import WhySchool from "./WhySchool";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import HomeBanner from "./HomeBanner";
+import Photos from "./Photos";
 
 const Home = () => {
   return (
@@ -96,7 +96,7 @@ const Home = () => {
                 "url(http://www.khu.edu.mn:3000/upload/programfiles/banner02.jpg)",
               transition: "0.3s",
               "&:hover": {
-                transform: "scale(1.2)",
+                transform: "scale(1.09)",
               },
             }}
           ></Box>
@@ -118,15 +118,10 @@ const Home = () => {
                 "url(http://www.khu.edu.mn:3000/upload/programfiles/banner03.jpg)",
               transition: "0.3s",
               "&:hover": {
-                transform: "scale(1.2)",
+                transform: "scale(1.09)",
               },
             }}
           ></Box>
-          {/* <img
-            width="100%"
-            src="http://www.khu.edu.mn:3000/upload/programfiles/banner03.jpg"
-            alt=""
-          /> */}
         </Grid>{" "}
         <Grid item xs={12} md={4} sx={{ p: 1 }}>
           <Box
@@ -139,7 +134,7 @@ const Home = () => {
                 "url(http://www.khu.edu.mn:3000/upload/programfiles/banner01.jpg)",
               transition: "0.3s",
               "&:hover": {
-                transform: "scale(1.2)",
+                transform: "scale(1.09)",
               },
             }}
           ></Box>
@@ -217,8 +212,8 @@ const Home = () => {
           </Grid>
         </Container>
       </Box>
-
       <WhySchool />
+      <Photos />
     </>
   );
 };

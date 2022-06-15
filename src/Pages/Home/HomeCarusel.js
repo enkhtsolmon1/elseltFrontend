@@ -55,7 +55,7 @@ function HomeCarusel() {
       >
         {images.map((step, index) => (
           <Card key={index}>
-            <CardMedia sx={{}} image={step.imgPath}>
+            <CardMedia image={step.imgPath}>
               <Grid
                 sx={{
                   pt: 20,
