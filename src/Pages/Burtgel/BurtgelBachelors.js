@@ -15,8 +15,14 @@ import ElseltCTX from "../../Context/ElseltContext";
 const BurtgelBachelors = () => {
   const navigate = useNavigate();
 
-  const { bacheUser, addBachelor, addressState, masterUser } =
-    useContext(ElseltCTX);
+  const {
+    bacheUser,
+    addBachelor,
+    addressState,
+    masterUser,
+    getSurguuli,
+    school,
+  } = useContext(ElseltCTX);
   {
     bacheUser.success && navigate("/profile");
   }
@@ -34,7 +40,9 @@ const BurtgelBachelors = () => {
     status: "Системд нэвтэрсэн",
     year: "",
     examloc: "",
+    sname: "",
   });
+
   const handleChange = (prop) => (event) => {
     setBachelor({ ...bachelor, [prop]: event.target.value });
     if (prop === "password") {
@@ -56,7 +64,10 @@ const BurtgelBachelors = () => {
       >
         <Grid item xs={12}>
           <TextField
-            onChange={handleChange("examloc")}
+            onChange={(e) => {
+              setBachelor({ ...bachelor, examloc: e.target.value });
+              getSurguuli(e.target.value);
+            }}
             size="small"
             label="Аймаг сонгох"
             fullWidth
@@ -70,6 +81,25 @@ const BurtgelBachelors = () => {
                   {el.aimagCity}
                 </option>
               ))}
+          </TextField>
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            onChange={(e) => {
+              setBachelor({ ...bachelor, sname: e.target.value });
+            }}
+            size="small"
+            label="Сургууль"
+            fullWidth
+            select
+            SelectProps={{ native: true }}
+          >
+            <option aria-label="None" value="" />
+            {school.surguuli.map((el, index) => (
+              <option key={index} value={el.ner}>
+                {el.ner}
+              </option>
+            ))}
           </TextField>
         </Grid>
         <Grid item xs={12}>
@@ -90,15 +120,6 @@ const BurtgelBachelors = () => {
             variant="outlined"
           />
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            size="small"
-            fullWidth
-            onChange={handleChange("regnum")}
-            label="Регистр"
-            variant="outlined"
-          />
-        </Grid>{" "}
         <Grid item xs={12}>
           <TextField
             size="small"

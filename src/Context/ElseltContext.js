@@ -42,6 +42,10 @@ export const ElseltStore = (props) => {
     success: false,
     master: {},
   });
+  const [school, setSchool] = useState({
+    success: false,
+    surguuli: [],
+  });
   const alertCall = (message, variant) => {
     // variant could be success, error, warning, info, or default
     enqueueSnackbar(message, { variant });
@@ -66,6 +70,14 @@ export const ElseltStore = (props) => {
       })
       .then((res) => {
         setBachelors({ ...res.data });
+      })
+      .catch((error) => alertCall(error.response.data.error, "error"));
+  };
+  const getSurguuli = (city) => {
+    axios
+      .get(`surguuli/find/${city}/nosum`)
+      .then((res) => {
+        setSchool({ ...res.data });
       })
       .catch((error) => alertCall(error.response.data.error, "error"));
   };
@@ -212,6 +224,8 @@ export const ElseltStore = (props) => {
   return (
     <ElseltContext.Provider
       value={{
+        school,
+        getSurguuli,
         setMasterUser,
         updateMaster,
         masterUser,
