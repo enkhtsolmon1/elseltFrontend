@@ -14,13 +14,13 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const images = [
   {
+    imgPath: "banner01.jpg",
+  },
+  {
     imgPath: "banner02.jpg",
   },
   {
     imgPath: "banner03.jpg",
-  },
-  {
-    imgPath: "banner01.jpg",
   },
 ];
 const Transition = React.forwardRef(function Transition(props, ref) {
