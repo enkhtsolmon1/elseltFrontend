@@ -144,7 +144,7 @@ const Program = () => {
               variant="contained"
               color="primary"
             >
-              Энх хөтөлбөрийг сонгох
+              Энэ хөтөлбөрийг сонгох
             </Button>
           ) : (
             <Button
@@ -186,6 +186,7 @@ const Program = () => {
               "Хууль, эрх зүй",
               "Бизнес, эдийн засаг",
               "Гадаад хэл",
+              "Боловсрол судлал",
             ].map((el, index) => {
               return (
                 <Tab sx={{ fontSize: 12 }} key={index} value={el} label={el} />
