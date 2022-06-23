@@ -89,42 +89,6 @@ const MasterProfile = () => {
             <Grid item xs={12}>
               <Divider />
             </Grid>
-            <Grid item xs={12} md={3}>
-              <Box style={{ height: "100%" }} boxShadow={3} p={2}>
-                <Grid container justify="center" spacing={2}>
-                  <Grid item xs={12}>
-                    <b> Овог:</b> {masterOne.master.lastname}
-                  </Grid>
-                  <Grid item xs={12}>
-                    <b> Нэр:</b> {masterOne.master.firstname}
-                  </Grid>
-                  <Grid item xs={12}>
-                    <b> Регистер:</b> {masterOne.master.regnum}
-                  </Grid>
-                  <Grid item xs={12}>
-                    <b> Email:</b> {masterOne.master.email}
-                  </Grid>
-                  <Grid item xs={12}>
-                    <b> Утас:</b> {masterOne.master.phone1}
-                  </Grid>
-
-                  <Grid container justify="center" item xs={12}>
-                    <Button
-                      size="medium"
-                      onClick={() => {
-                        handleChange1(1);
-                        // addmaster(master);
-                      }}
-                      fullWidth
-                      variant="outlined"
-                      color="primary"
-                    >
-                      Засварлах
-                    </Button>{" "}
-                  </Grid>
-                </Grid>
-              </Box>
-            </Grid>
             <Grid item xs={12} md={9}>
               <Box style={{ padding: 20 }} boxShadow={3}>
                 {/* <Sliders /> */}
@@ -160,15 +124,21 @@ const MasterProfile = () => {
                           label={masterOne.master.program.name}
                         />
                       ) : (
-                        <Chip
-                          style={{
-                            marginLeft: 10,
-                            backgroundColor: "#EF4C42",
-                            color: "#fff",
-                          }}
-                          size="small"
-                          label="Хөтөлбөр сонгоогүй байна"
-                        />
+                        <>
+                          <Button variant="text" color="secondary" size="small">
+                            Хөтөлбөр сонгоогүй байна!
+                          </Button>
+                          <Button
+                            onClick={() => {
+                              navigate("/programs");
+                            }}
+                            variant="contained"
+                            color="primary"
+                            size="small"
+                          >
+                            Хөтөлбөртэй танилцах
+                          </Button>
+                        </>
                       )}
                     </Grid>
                     <Grid item xs={12}>
@@ -362,6 +332,42 @@ const MasterProfile = () => {
                     </Grid>
                   </Grid>
                 </TabPanel>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <Box style={{ height: "100%" }} boxShadow={3} p={2}>
+                <Grid container justify="center" spacing={2}>
+                  <Grid item xs={12}>
+                    <b> Овог:</b> {masterOne.master.lastname}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <b> Нэр:</b> {masterOne.master.firstname}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <b> Регистер:</b> {masterOne.master.regnum}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <b> Email:</b> {masterOne.master.email}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <b> Утас:</b> {masterOne.master.phone1}
+                  </Grid>
+
+                  <Grid container justify="center" item xs={12}>
+                    <Button
+                      size="medium"
+                      onClick={() => {
+                        handleChange1(1);
+                        // addmaster(master);
+                      }}
+                      fullWidth
+                      variant="outlined"
+                      color="primary"
+                    >
+                      Засварлах
+                    </Button>{" "}
+                  </Grid>
+                </Grid>
               </Box>
             </Grid>
           </Grid>

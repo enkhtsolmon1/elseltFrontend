@@ -64,15 +64,6 @@ const Masters = () => {
             label="Нэр"
           />
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            size="small"
-            onChange={formhandleChange("regnum")}
-            required
-            fullWidth
-            label="Регистрийн дугаар"
-          />
-        </Grid>
 
         <Grid item xs={12}>
           <TextField
@@ -91,33 +82,7 @@ const Masters = () => {
             ))}
           </TextField>
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            size="small"
-            onChange={formhandleChange("university")}
-            required
-            fullWidth
-            label="Төгссөн сургууль"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            size="small"
-            onChange={formhandleChange("bakDipNum")}
-            required
-            fullWidth
-            label="Бакалаврын дипломны дугаар"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            size="small"
-            onChange={formhandleChange("magDipNum")}
-            required
-            fullWidth
-            label="Магистрын дипломны дугаар"
-          />
-        </Grid>
+
         <Grid item xs={12}>
           <TextField
             size="small"
@@ -127,15 +92,7 @@ const Masters = () => {
             type="number"
           />
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            size="small"
-            onChange={formhandleChange("phone2")}
-            fullWidth
-            label="Яаралтай үед холбоо барих дугаар"
-            type="number"
-          />
-        </Grid>
+
         <Grid item xs={12}>
           <TextField
             size="small"

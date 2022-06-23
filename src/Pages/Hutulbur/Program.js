@@ -94,6 +94,7 @@ const Program = () => {
     // variant could be success, error, warning, info, or default
     enqueueSnackbar(message, { variant });
   };
+  // console.log(programState);
   return (
     <Container maxWidth="xl">
       <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose}>
@@ -136,7 +137,7 @@ const Program = () => {
                   } else {
                     alertCall(
                       "Магистр, Докторын хөтөлбөр сонгоно уу!",
-                      "warning"
+                      "error"
                     );
                   }
                 }
@@ -179,7 +180,7 @@ const Program = () => {
             allowScrollButtonsMobile
             centered
           >
-            <Tab sx={{ fontSize: 12 }} value="all" label="Бүгдийг харах" />;
+            <Tab sx={{ fontSize: 12 }} value="all" label={`Бүгдийг харах`} />;
             {[
               "Багш мэргэжил",
               "Инженер, технологи",
@@ -199,15 +200,71 @@ const Program = () => {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <ToggleButtonGroup
-            size="small"
             color="primary"
+            sx={{}}
+            size="small"
             value={edu}
             exclusive
             onChange={handleChange1}
           >
-            <ToggleButton value="Бакалавр">Бакалавр</ToggleButton>
-            <ToggleButton value="Магистр">Магистр</ToggleButton>
-            <ToggleButton value="Доктор">Доктор</ToggleButton>
+            <ToggleButton sx={{ p: 0 }} value="Бакалавр">
+              <Box
+                sx={{
+                  py: 0,
+                  m: 0,
+                  px: 1,
+                  backgroundColor: edu === "Бакалавр" ? "#195EC8" : "",
+                  width: "100%",
+                  color: edu === "Бакалавр" ? "#fff" : "",
+                }}
+              >
+                Бакалавр -{" "}
+                {
+                  programState.programs.filter((el) =>
+                    el.EduLevel.includes("Бакалавр")
+                  ).length
+                }{" "}
+              </Box>
+            </ToggleButton>
+            <ToggleButton sx={{ p: 0 }} value="Магистр">
+              <Box
+                sx={{
+                  py: 0,
+                  m: 0,
+                  px: 1,
+                  backgroundColor: edu === "Магистр" ? "#195EC8" : "",
+                  width: "100%",
+                  color: edu === "Магистр" ? "#fff" : "",
+                }}
+              >
+                Магистр -{" "}
+                {
+                  // .filter((el) => el.form.includes(pform))
+                  programState.programs.filter((el) =>
+                    el.EduLevel.includes("Магистр")
+                  ).length
+                }
+              </Box>
+            </ToggleButton>
+            <ToggleButton sx={{ p: 0 }} value="Доктор">
+              <Box
+                sx={{
+                  py: 0,
+                  m: 0,
+                  px: 1,
+                  backgroundColor: edu === "Доктор" ? "#195EC8" : "",
+                  width: "100%",
+                  color: edu === "Доктор" ? "#fff" : "",
+                }}
+              >
+                Доктор -{" "}
+                {
+                  programState.programs.filter((el) =>
+                    el.EduLevel.includes("Доктор")
+                  ).length
+                }
+              </Box>
+            </ToggleButton>
           </ToggleButtonGroup>
           <ToggleButtonGroup
             sx={{ ml: { xs: 0, sm: 2 }, mt: { xs: 2, sm: 2 } }}
@@ -217,9 +274,82 @@ const Program = () => {
             exclusive
             onChange={handleChange2}
           >
-            <ToggleButton value="Өдөр">Өдөр</ToggleButton>
-            <ToggleButton value="Орой">Орой</ToggleButton>
-            <ToggleButton value="Эчнээ">Эчнээ</ToggleButton>
+            <ToggleButton sx={{ p: 0 }} value="Өдөр">
+              <Box
+                sx={{
+                  py: 0,
+                  m: 0,
+                  px: 1,
+                  backgroundColor: pform === "Өдөр" ? "#195EC8" : "",
+                  width: "100%",
+                  color: pform === "Өдөр" ? "#fff" : "",
+                }}
+              >
+                Өдөр -{" "}
+                {
+                  programState.programs
+                    .filter((el) => el.EduLevel.includes(edu))
+                    .filter((el) => el.form.includes("Өдөр")).length
+                }
+              </Box>
+            </ToggleButton>
+            <ToggleButton sx={{ p: 0 }} value="Орой">
+              <Box
+                sx={{
+                  py: 0,
+                  m: 0,
+                  px: 1,
+                  backgroundColor: pform === "Орой" ? "#195EC8" : "",
+                  width: "100%",
+                  color: pform === "Орой" ? "#fff" : "",
+                }}
+              >
+                Орой -{" "}
+                {
+                  programState.programs
+                    .filter((el) => el.EduLevel.includes(edu))
+                    .filter((el) => el.form.includes("Орой")).length
+                }
+              </Box>
+            </ToggleButton>
+            <ToggleButton sx={{ p: 0 }} value="Эчнээ">
+              <Box
+                sx={{
+                  py: 0,
+                  m: 0,
+                  px: 1,
+                  backgroundColor: pform === "Эчнээ" ? "#195EC8" : "",
+                  width: "100%",
+                  color: pform === "Эчнээ" ? "#fff" : "",
+                }}
+              >
+                Эчнээ -{" "}
+                {
+                  programState.programs
+                    .filter((el) => el.EduLevel.includes(edu))
+                    .filter((el) => el.form.includes("Эчнээ")).length
+                }
+              </Box>
+            </ToggleButton>
+            <ToggleButton sx={{ p: 0 }} value="Хөрвөх">
+              <Box
+                sx={{
+                  py: 0,
+                  m: 0,
+                  px: 1,
+                  backgroundColor: pform === "Хөрвөх" ? "#195EC8" : "",
+                  width: "100%",
+                  color: pform === "Хөрвөх" ? "#fff" : "",
+                }}
+              >
+                Хөрвөх -{" "}
+                {
+                  programState.programs
+                    .filter((el) => el.EduLevel.includes(edu))
+                    .filter((el) => el.form.includes("Хөрвөх")).length
+                }
+              </Box>
+            </ToggleButton>
           </ToggleButtonGroup>
         </Grid>
         {programState.programs
@@ -262,19 +392,23 @@ const Program = () => {
                             {el.learningTime} жил
                           </Typography>
                         </Stack>
-
-                        <Stack direction="row" spacing={1}>
-                          <LibraryBooksIcon color="primary" fontSize="small" />
-                          <Typography sx={{ fontSize: 14 }}>
-                            {el.esh.map((el, index) => {
-                              return (
-                                <Typography key={index} variant="caption">
-                                  {el.eshHicheel}{" "}
-                                </Typography>
-                              );
-                            })}
-                          </Typography>
-                        </Stack>
+                        {el.EduLevel === "Бакалавр" && (
+                          <Stack direction="row" spacing={1}>
+                            <LibraryBooksIcon
+                              color="primary"
+                              fontSize="small"
+                            />
+                            <Typography sx={{ fontSize: 14 }}>
+                              {el.esh.map((el, index) => {
+                                return (
+                                  <Typography key={index} variant="caption">
+                                    {el.eshHicheel}{" "}
+                                  </Typography>
+                                );
+                              })}
+                            </Typography>
+                          </Stack>
+                        )}
                       </Stack>
                     </CardContent>
                   </CardActionArea>

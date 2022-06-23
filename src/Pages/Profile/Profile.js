@@ -87,65 +87,6 @@ const Profile = () => {
             <Grid item xs={12}>
               <Divider />
             </Grid>
-            <Grid item xs={12} md={3}>
-              <Box style={{ height: "100%" }} boxShadow={3} p={2}>
-                <Grid container justify="center" spacing={2}>
-                  <Grid container justify="center" item xs={12}>
-                    <img
-                      src={`https://eyesh.eec.mn/uploads/pupils/${bachelors.bachelor.pupil_id}.jpg`}
-                      width="150"
-                    />
-                    {/* <img
-                      src="https://image.flaticon.com/icons/png/512/3135/3135755.png"
-                      width="150px"
-                    /> */}
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Chip
-                      style={{
-                        marginTop: 10,
-                        backgroundColor: "#27ae60",
-                        color: "#fff",
-                      }}
-                      size="small"
-                      label={bachelors.bachelor.status}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <b> Овог:</b> {bachelors.bachelor.lname}
-                  </Grid>
-                  <Grid item xs={12}>
-                    <b> Нэр:</b> {bachelors.bachelor.fname}
-                  </Grid>
-                  <Grid item xs={12}>
-                    <b> Регистер:</b> {bachelors.bachelor.regnum}
-                  </Grid>
-                  <Grid item xs={12}>
-                    <b> Email:</b> {bachelors.bachelor.email}
-                  </Grid>
-                  <Grid item xs={12}>
-                    <b> Утас:</b> {bachelors.bachelor.phone}
-                  </Grid>
-                  <Grid item xs={12}>
-                    <b> Бүртгэлийн дугаар:</b> {bachelors.bachelor.pupil_id}
-                  </Grid>
-                  <Grid container justify="center" item xs={12}>
-                    <Button
-                      size="medium"
-                      onClick={() => {
-                        handleChange1(1);
-                        // addBachelor(bachelor);
-                      }}
-                      fullWidth
-                      variant="outlined"
-                      color="primary"
-                    >
-                      Засварлах
-                    </Button>{" "}
-                  </Grid>
-                </Grid>
-              </Box>
-            </Grid>
             <Grid item xs={12} md={9}>
               <Box style={{ padding: 20 }} boxShadow={3}>
                 {/* <Sliders /> */}
@@ -171,25 +112,33 @@ const Profile = () => {
                         Таны сонгосон хөтөлбөр:
                       </Typography>
                       {bachelors.bachelor.program ? (
-                        <Chip
-                          style={{
-                            marginLeft: 10,
-                            backgroundColor: "#3498db",
-                            color: "#fff",
-                          }}
-                          size="medium"
-                          label={bachelors.bachelor.program.name}
-                        />
+                        <>
+                          <Chip
+                            style={{
+                              marginLeft: 10,
+                              backgroundColor: "#3498db",
+                              color: "#fff",
+                            }}
+                            size="medium"
+                            label={bachelors.bachelor.program.name}
+                          />
+                        </>
                       ) : (
-                        <Chip
-                          style={{
-                            marginLeft: 10,
-                            backgroundColor: "#EF4C42",
-                            color: "#fff",
-                          }}
-                          size="small"
-                          label="Хөтөлбөр сонгоогүй байна"
-                        />
+                        <>
+                          <Button variant="text" color="secondary" size="small">
+                            Хөтөлбөр сонгоогүй байна!
+                          </Button>
+                          <Button
+                            onClick={() => {
+                              navigate("/programs");
+                            }}
+                            variant="contained"
+                            color="primary"
+                            size="small"
+                          >
+                            Хөтөлбөртэй танилцах
+                          </Button>
+                        </>
                       )}
                     </Grid>
                     <Grid item xs={12}>
@@ -332,6 +281,65 @@ const Profile = () => {
                     </Grid>
                   </Grid>
                 </TabPanel>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <Box style={{ height: "100%" }} boxShadow={3} p={2}>
+                <Grid container justify="center" spacing={2}>
+                  <Grid container justify="center" item xs={12}>
+                    {/* <img
+                      src={`https://eyesh.eec.mn/uploads/pupils/${bachelors.bachelor.pupil_id}.jpg`}
+                      width="150"
+                    /> */}
+                    {/* <img
+                      src="https://image.flaticon.com/icons/png/512/3135/3135755.png"
+                      width="150px"
+                    /> */}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Chip
+                      style={{
+                        marginTop: 10,
+                        backgroundColor: "#27ae60",
+                        color: "#fff",
+                      }}
+                      size="small"
+                      label={bachelors.bachelor.status}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <b> Овог:</b> {bachelors.bachelor.lname}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <b> Нэр:</b> {bachelors.bachelor.fname}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <b> Регистер:</b> {bachelors.bachelor.regnum}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <b> Email:</b> {bachelors.bachelor.email}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <b> Утас:</b> {bachelors.bachelor.phone}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <b> Бүртгэлийн дугаар:</b> {bachelors.bachelor.pupil_id}
+                  </Grid>
+                  <Grid container justify="center" item xs={12}>
+                    <Button
+                      size="medium"
+                      onClick={() => {
+                        handleChange1(1);
+                        // addBachelor(bachelor);
+                      }}
+                      fullWidth
+                      variant="outlined"
+                      color="primary"
+                    >
+                      Засварлах
+                    </Button>{" "}
+                  </Grid>
+                </Grid>
               </Box>
             </Grid>
           </Grid>
