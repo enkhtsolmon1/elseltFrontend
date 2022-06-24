@@ -24,6 +24,7 @@ const Masters = () => {
     regnum: "",
     email: "",
     password: "",
+    password2: "",
     address1: "",
     address2: "",
     social1: "",
@@ -36,7 +37,7 @@ const Masters = () => {
   const formhandleChange = (prop) => (event) => {
     updateFormData({ ...formData, [prop]: event.target.value.trim() });
   };
-
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
   return (
     <Stack alignItems="center" justifyContent="center" width="100%">
       <Grid
@@ -50,7 +51,6 @@ const Masters = () => {
           <TextField
             size="small"
             onChange={formhandleChange("lastname")}
-            required
             fullWidth
             label="Овог"
           />
@@ -59,7 +59,6 @@ const Masters = () => {
           <TextField
             size="small"
             onChange={formhandleChange("firstname")}
-            required
             fullWidth
             label="Нэр"
           />
@@ -97,9 +96,10 @@ const Masters = () => {
           <TextField
             size="small"
             onChange={formhandleChange("email")}
-            required
             fullWidth
             label="Е-мэйл"
+            type="email"
+            // error={regex.test(formData.email) ? false : true}
           />
         </Grid>
         <Grid item xs={12}>
@@ -107,14 +107,32 @@ const Masters = () => {
             size="small"
             onChange={formhandleChange("password")}
             type="password"
-            required
             fullWidth
             label="Нууц үг"
           />
         </Grid>
         <Grid item xs={12}>
-          <Button
+          <TextField
             size="small"
+            style={{ maxWidth: 350 }}
+            fullWidth
+            onChange={formhandleChange("password2")}
+            label="Нууц үг давтах"
+            variant="outlined"
+            type="password"
+            error={formData.password === formData.password2 ? false : true}
+            helperText={
+              formData.password === formData.password2
+                ? ""
+                : "Нууц үгээ зөв оруулна уу!"
+            }
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            fullWidth
+            disabled={formData.password !== formData.password2 ? true : false}
+            size="medium"
             onClick={() => {
               addElselt(formData);
             }}

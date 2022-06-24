@@ -33,8 +33,14 @@ const Program = () => {
   useEffect(() => {
     LoadPrograms();
   }, []);
-  const { programState, LoadPrograms, discState, getTags } =
-    useContext(ProgramCTX);
+  const {
+    programState,
+    LoadPrograms,
+    discState,
+    getTags,
+    program,
+    getProgram,
+  } = useContext(ProgramCTX);
   const { bacheUser, updateBachelors, masterUser, updateMaster } =
     useContext(ElseltCTX);
   var stud = {};
@@ -99,15 +105,15 @@ const Program = () => {
     <Container maxWidth="xl">
       <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose}>
         <DialogContent>
-          {data && (
+          {program.success && (
             <>
               <Typography
                 sx={{ fontSize: 18, fontWeight: "bold", color: "blue" }}
               >
                 {/* {data.name}  */}
-                Индекс: {data.ndx}
+                Индекс: {program.program.ndx}
               </Typography>
-              {ReactHtmlParser(decode(data.taniltsuulga))}
+              {ReactHtmlParser(decode(program.program.taniltsuulga))}
             </>
           )}
         </DialogContent>
@@ -116,30 +122,19 @@ const Program = () => {
             <Button
               onClick={() => {
                 if (bacheUser.success) {
-                  if (data.EduLevel === "Бакалавр") {
-                    updateBachelors(bacheUser.user._id, {
-                      program: data._id,
-                      schoolID: data.school_id._id,
-                      department: data.department_id_id,
-                    });
-                    navigate("/profile");
-                  } else {
-                    alertCall("Бакалаврын хөтөлбөр сонгоно уу!", "warning");
-                  }
+                  updateBachelors(bacheUser.user._id, {
+                    program: program.program._id,
+                    schoolID: program.program.school_id._id,
+                    department: program.program.department_id_id,
+                  });
+                  navigate("/profile");
                 } else if (masterUser.success) {
-                  if (data.EduLevel !== "Бакалавр") {
-                    updateMaster(masterUser.user._id, {
-                      program: data._id,
-                      schoolID: data.school_id._id,
-                      department: data.department_id_id,
-                    });
-                    navigate("/masterprofile");
-                  } else {
-                    alertCall(
-                      "Магистр, Докторын хөтөлбөр сонгоно уу!",
-                      "error"
-                    );
-                  }
+                  updateMaster(masterUser.user._id, {
+                    program: program.program._id,
+                    schoolID: program.program.school_id._id,
+                    department: program.program.department_id_id,
+                  });
+                  navigate("/masterprofile");
                 }
               }}
               variant="contained"
@@ -352,97 +347,107 @@ const Program = () => {
             </ToggleButton>
           </ToggleButtonGroup>
         </Grid>
-        {programState.programs
-          .filter((el) => el.EduLevel.includes(edu))
-          .filter((el) => el.form.includes(pform))
-          .map((el, index) => {
-            return (
-              <Grid item xs={12} md={3}>
-                <Card sx={{ boxShadow: 0, borderRadius: 0, height: "100%" }}>
-                  <CardActionArea sx={{ height: 400 }}>
-                    <CardMedia
-                      component="img"
-                      height="200"
-                      image={`http://khu.edu.mn:3000/upload/images/${el.pathImage}`}
-                    />
-                    <CardContent>
-                      <Typography
-                        sx={{
-                          fontSize: 16,
-                          color: "#623CEA",
-                          textAlign: "center",
-                        }}
-                        component="div"
-                      >
-                        {el.name}
-                      </Typography>
-                      <Stack mt={1}>
-                        <Stack direction="row" spacing={1}>
-                          <SchoolIcon color="primary" fontSize="small" />
-                          <Typography sx={{ fontSize: 14 }}>
-                            {el.EduLevel} ( {el.form} )
-                          </Typography>
-                        </Stack>
-                        <Stack direction="row" spacing={1}>
-                          <AccessTimeFilledIcon
-                            color="primary"
-                            fontSize="small"
-                          />
-                          <Typography sx={{ fontSize: 14 }}>
-                            {el.learningTime} жил
-                          </Typography>
-                        </Stack>
-                        {el.EduLevel === "Бакалавр" && (
+        {programState.success &&
+          programState.programs
+            .filter((el) => el.EduLevel.includes(edu))
+            .filter((el) => el.form.includes(pform))
+            // .filter((el) =>
+            //   el.school_id._id.includes(
+            //     bacheUser.success
+            //       ? "5f79236c2e13c437e888fe21" && "5f7da7e0b35e511ba0020f8b"
+            //       : masterUser.success
+            //       ? "5f7da7e0b35e511ba0020f8c"
+            //       : ""
+            //   )
+            // )
+            .map((el, index) => {
+              return (
+                <Grid item xs={12} md={3}>
+                  <Card sx={{ boxShadow: 0, borderRadius: 0, height: "100%" }}>
+                    <CardActionArea sx={{ height: 400 }}>
+                      <CardMedia
+                        component="img"
+                        height="200"
+                        image={`http://khu.edu.mn:3000/upload/images/${el.pathImage}`}
+                      />
+                      <CardContent>
+                        <Typography
+                          sx={{
+                            fontSize: 16,
+                            color: "#623CEA",
+                            textAlign: "center",
+                          }}
+                          component="div"
+                        >
+                          {el.name}
+                        </Typography>
+                        <Stack mt={1}>
                           <Stack direction="row" spacing={1}>
-                            <LibraryBooksIcon
+                            <SchoolIcon color="primary" fontSize="small" />
+                            <Typography sx={{ fontSize: 14 }}>
+                              {el.EduLevel} ( {el.form} )
+                            </Typography>
+                          </Stack>
+                          <Stack direction="row" spacing={1}>
+                            <AccessTimeFilledIcon
                               color="primary"
                               fontSize="small"
                             />
                             <Typography sx={{ fontSize: 14 }}>
-                              {el.esh.map((el, index) => {
-                                return (
-                                  <Typography key={index} variant="caption">
-                                    {el.eshHicheel}{" "}
-                                  </Typography>
-                                );
-                              })}
+                              {el.learningTime} жил
                             </Typography>
                           </Stack>
-                        )}
+                          {el.EduLevel === "Бакалавр" && (
+                            <Stack direction="row" spacing={1}>
+                              <LibraryBooksIcon
+                                color="primary"
+                                fontSize="small"
+                              />
+                              <Typography sx={{ fontSize: 14 }}>
+                                {el.esh.map((el, index) => {
+                                  return (
+                                    <Typography key={index} variant="caption">
+                                      {el.eshHicheel}{" "}
+                                    </Typography>
+                                  );
+                                })}
+                              </Typography>
+                            </Stack>
+                          )}
+                        </Stack>
+                      </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+                      <Stack justifyContent="flex-end" width="100%">
+                        <Button
+                          onClick={() => {
+                            getProgram(el._id);
+                            handleClickOpen();
+                          }}
+                          size="small"
+                          sx={{
+                            fontSize: 10,
+                            mx: 10,
+                            backgroundColor: "#2C75E4",
+                            borderRadius: 5,
+                            transition: "0.3s",
+                            "&:hover": {
+                              mx: 5,
+                              backgroundColor: "#FBBC05",
+                              color: "#000",
+                            },
+                          }}
+                          variant="contained"
+                          color="primary"
+                        >
+                          Дэлгэрэнгүй үзэх
+                        </Button>
                       </Stack>
-                    </CardContent>
-                  </CardActionArea>
-                  <CardActions>
-                    <Stack justifyContent="flex-end" width="100%">
-                      <Button
-                        onClick={() => {
-                          setData({ ...el });
-                          handleClickOpen();
-                        }}
-                        size="small"
-                        sx={{
-                          fontSize: 10,
-                          mx: 10,
-                          backgroundColor: "#2C75E4",
-                          borderRadius: 5,
-                          transition: "0.3s",
-                          "&:hover": {
-                            mx: 5,
-                            backgroundColor: "#FBBC05",
-                            color: "#000",
-                          },
-                        }}
-                        variant="contained"
-                        color="primary"
-                      >
-                        Дэлгэрэнгүй үзэх
-                      </Button>
-                    </Stack>
-                  </CardActions>
-                </Card>
-              </Grid>
-            );
-          })}
+                    </CardActions>
+                  </Card>
+                </Grid>
+              );
+            })}
       </Grid>
     </Container>
   );

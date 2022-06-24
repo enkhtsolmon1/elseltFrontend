@@ -8,6 +8,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 
 const Login = ({ handleClose }) => {
+  let navigate = useNavigate();
+
   const { LoginBachelor, bacheUser, masterUser, LoginMasters } =
     useContext(ElseltCTX);
   const [bLogin, setBlogin] = useState({
@@ -96,6 +98,21 @@ const Login = ({ handleClose }) => {
           color="primary"
         >
           Нэвтрэх
+        </Button>
+        <Button
+          size="medium"
+          sx={{
+            mt: 1,
+          }}
+          fullWidth
+          variant="contained"
+          onClick={() => {
+            navigate("burtgel");
+            handleClose();
+          }}
+          color="secondary"
+        >
+          бүртгүүлэх
         </Button>
       </Grid>
     </Grid>

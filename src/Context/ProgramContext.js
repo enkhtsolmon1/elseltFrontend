@@ -26,6 +26,10 @@ export const ProgramStore = (props) => {
     success: false,
     disciplines: [],
   });
+  const [program, setProgam] = useState({
+    success: false,
+    program: {},
+  });
 
   const alertCall = (message, variant) => {
     // variant could be success, error, warning, info, or default
@@ -98,9 +102,19 @@ export const ProgramStore = (props) => {
       })
       .catch((error) => alertCall(error.response.data.error, "error"));
   };
+  const getProgram = (id) => {
+    axios
+      .get(`programs/${id}`)
+      .then((res) => {
+        setProgam({ ...res.data });
+      })
+      .catch((error) => alertCall(error.response.data.error, "error"));
+  };
   return (
     <ProgramContext.Provider
       value={{
+        program,
+        getProgram,
         getDiscProgramm,
         discState,
         setDiscState,

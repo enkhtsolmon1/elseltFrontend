@@ -31,6 +31,7 @@ const BurtgelBachelors = () => {
   }
   const [bachelor, setBachelor] = useState({
     password: "",
+    password2: "",
     lname: "",
     fname: "",
     phone: "",
@@ -53,6 +54,8 @@ const BurtgelBachelors = () => {
       });
     }
   };
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
   return (
     <Stack alignItems="center" justifyContent="center" width="100%">
       <Grid
@@ -127,6 +130,7 @@ const BurtgelBachelors = () => {
             onChange={handleChange("phone")}
             label="Утас"
             variant="outlined"
+            type="number"
           />
         </Grid>
         <Grid item xs={12}>
@@ -137,6 +141,7 @@ const BurtgelBachelors = () => {
             label="Email"
             variant="outlined"
             type="email"
+            // error={regex.test(bachelor.email) ? false : true}
           />
         </Grid>
         <Grid item xs={12}>
@@ -147,8 +152,17 @@ const BurtgelBachelors = () => {
             label="Бүртгэлийн дугаар"
             variant="outlined"
             type="number"
-            helperText="Боловсролын үнэлгээний төвд бүртгүүлсэн бүртгэлийн дугаар байхыг анхаарна уу!"
+            error={bachelor.pupil_id.length !== 9 ? true : false}
+            helperText={
+              bachelor.pupil_id.length !== 9
+                ? "Бүртгэлийн дугаараа зөв оруулна уу!"
+                : false
+            }
           />
+          <Typography variant="caption" color="secondary">
+            Боловсролын үнэлгээний төвд бүртгүүлсэн бүртгэлийн дугаар байхыг
+            анхаарна уу !
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -159,12 +173,38 @@ const BurtgelBachelors = () => {
             label="Нууц үг"
             variant="outlined"
             type="password"
-            helperText="Боловсролын үнэлгээний төвд бүртгүүлсэн нууц үг байхыг анхаарна уу"
+            helperText=""
+          />
+          <Typography variant="caption" color="secondary">
+            Боловсролын үнэлгээний төвд бүртгүүлсэн нууц үг байхыг анхаарна уу !
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            size="small"
+            style={{ maxWidth: 350 }}
+            fullWidth
+            onChange={handleChange("password2")}
+            label="Нууц үг давтах"
+            variant="outlined"
+            type="password"
+            error={bachelor.password === bachelor.password2 ? false : true}
+            helperText={
+              bachelor.password === bachelor.password2
+                ? ""
+                : "Нууц үгээ зөв оруулна уу!"
+            }
           />
         </Grid>
         <Grid container item xs={12}>
           <Grow in {...(true ? { timeout: 1000 } : {})}>
             <Button
+              disabled={
+                bachelor.pupil_id.length !== 9 ||
+                bachelor.password !== bachelor.password2
+                  ? true
+                  : false
+              }
               style={{ borderRadius: 0, width: 350 }}
               size="large"
               onClick={() => {
