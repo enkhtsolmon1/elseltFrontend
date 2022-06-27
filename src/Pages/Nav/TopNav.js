@@ -296,7 +296,13 @@ const TopNav = (props) => {
         >
           <Container maxWidth="lg">
             <Toolbar>
-              <Stack direction="row" spacing={0.5}>
+              <Stack
+                onClick={() => {
+                  navigate("/home");
+                }}
+                direction="row"
+                spacing={0.5}
+              >
                 <img
                   width="80px"
                   // height="70px"

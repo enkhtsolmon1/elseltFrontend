@@ -11,6 +11,12 @@ import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import { Card, CardMedia, Grid, Container, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Login from "../Auth/Login";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -19,10 +25,10 @@ const images = [
     label: "2",
     imgPath: "http://www.khu.edu.mn:3000/upload/programfiles/elseltHome.jpg",
   },
-  {
-    label: "2",
-    imgPath: "http://www.khu.edu.mn:3000/upload/programfiles/elseltHome2.jpg",
-  },
+  // {
+  //   label: "2",
+  //   imgPath: "http://www.khu.edu.mn:3000/upload/programfiles/elseltHome2.jpg",
+  // },
 ];
 
 function HomeCarusel() {
@@ -43,9 +49,32 @@ function HomeCarusel() {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
+  const [open, setOpen] = React.useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <Box sx={{ width: "100%", flexGrow: 1 }}>
+      <Dialog
+        maxWidth="xs"
+        fullWidth
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle sx={{ textAlign: "center" }} id="alert-dialog-title">
+          Нэвтрэх хэсэг
+        </DialogTitle>
+        <DialogContent>
+          <Login handleClose={handleClose} />
+        </DialogContent>
+      </Dialog>
       <AutoPlaySwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={activeStep}
@@ -75,17 +104,22 @@ function HomeCarusel() {
                       sx={{ fontSize: { xs: 20, md: 48 }, color: "#FDC735" }}
                     >
                       Welcome to Khovd university
-                    </Typography>
+                    </Typography> */}
                     <Button
+                      size="large"
                       onClick={() => {
-                        navigate("/burtgel");
+                        handleClickOpen();
                       }}
-                      sx={{ borderRadius: 5 }}
+                      sx={{
+                        borderRadius: 5,
+                        marginTop: { xs: 50, md: 30 },
+                        width: 350,
+                      }}
                       variant="contained"
                       color="info"
                     >
-                      бүртгүүлэх
-                    </Button> */}
+                      Нэвтрэх
+                    </Button>
                   </Stack>
                 </Container>
               </Grid>

@@ -107,7 +107,7 @@ const Login = ({ handleClose }) => {
           fullWidth
           variant="contained"
           onClick={() => {
-            navigate("burtgel");
+            navigate("/burtgel");
             handleClose();
           }}
           color="secondary"
