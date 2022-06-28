@@ -128,18 +128,20 @@ const Profile = () => {
                           <Button variant="text" color="secondary" size="small">
                             Хөтөлбөр сонгоогүй байна!
                           </Button>
-                          <Button
-                            onClick={() => {
-                              navigate("/programs");
-                            }}
-                            variant="contained"
-                            color="primary"
-                            size="small"
-                          >
-                            Хөтөлбөртэй танилцах
-                          </Button>
                         </>
-                      )}
+                      )}{" "}
+                      <br />
+                      <br />
+                      <Button
+                        onClick={() => {
+                          navigate("/programs");
+                        }}
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                      >
+                        Хөтөлбөртэй танилцах
+                      </Button>
                     </Grid>
                     <Grid item xs={12}>
                       <Divider />
